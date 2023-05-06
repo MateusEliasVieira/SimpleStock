@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SimpleStock</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Senha</string>
+    <string name="title_button_login">Entrar</string>
+    <string name="text_create_account">Não tem uma conta? Cadastre-se</string>
 </resources>
