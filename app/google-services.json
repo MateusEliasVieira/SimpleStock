@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1033485729297",
+    "project_id": "simplestock-d2c19",
+    "storage_bucket": "simplestock-d2c19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033485729297:android:715a8c2fe16bb1c9147bb0",
+        "android_client_info": {
+          "package_name": "br.com.ifgoiano.simplestock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033485729297-qnu9l3v4gu3ekpso0t76lmqjegi0rha3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJa-c5ZFcgLWWpI7YMVwasGo7S-xUYfPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033485729297-qnu9l3v4gu3ekpso0t76lmqjegi0rha3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
