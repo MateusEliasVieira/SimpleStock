@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_cadastro_usuario"
+        android:enabled="true"
+        android:icon="@drawable/usuario"
+        android:title="@string/menu_cadastro_usuario"/>
+    <item
+        android:id="@+id/item_cadastro_fornecedor"
+        android:enabled="true"
+        android:icon="@drawable/fornecedor"
+        android:title="@string/menu_cadastro_fornecedor"/>
+    <item
+        android:id="@+id/item_cadastro_produto"
+        android:enabled="true"
+        android:icon="@drawable/produto"
+        android:title="@string/menu_cadastro_produto"/>
+    <item
+        android:id="@+id/item_gerenciador_estoque"
+        android:enabled="true"
+        android:icon="@drawable/estoque"
+        android:title="@string/menu_gerenciador_estoque"/>
+</menu>

@@ -1,7 +1,14 @@
 <resources>
-    <string name="app_name">SimpleStock</string>
+    <string name="app_name">Simple Stock</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Senha</string>
     <string name="title_button_login">Entrar</string>
     <string name="text_create_account">Não tem uma conta? Cadastre-se</string>
+
+    <string name="menu_cadastro_usuario">Usuário</string>
+    <string name="menu_cadastro_fornecedor">Fornecedor</string>
+    <string name="menu_cadastro_produto">Produto</string>
+    <string name="menu_gerenciador_estoque">Estoque</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
