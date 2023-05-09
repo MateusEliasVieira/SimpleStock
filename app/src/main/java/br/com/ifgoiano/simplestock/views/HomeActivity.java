@@ -1,7 +1,6 @@
 package br.com.ifgoiano.simplestock.views;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
@@ -13,9 +12,9 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigation.NavigationView;
 
 import br.com.ifgoiano.simplestock.R;
+import br.com.ifgoiano.simplestock.views.fragments.EstoqueFragment;
 import br.com.ifgoiano.simplestock.views.fragments.FornecedorFragment;
 import br.com.ifgoiano.simplestock.views.fragments.ProdutoFragment;
 import br.com.ifgoiano.simplestock.views.fragments.UsuarioFragment;
@@ -33,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         fragmentContainerView = findViewById(R.id.fragmentContainerView);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         loadNavigation();
+        loadFragmentInActivityHome(new VisualizacaoProdutosFragment());
     }
 
     public void loadNavigation() {
@@ -49,6 +49,9 @@ public class HomeActivity extends AppCompatActivity {
                     loadFragmentInActivityHome(new ProdutoFragment());
                 }
                 else if(item.getItemId() == R.id.item_gerenciador_estoque){
+                    loadFragmentInActivityHome(new EstoqueFragment());
+                }
+                else if(item.getItemId() == R.id.item_visualizar_produtos){
                     loadFragmentInActivityHome(new VisualizacaoProdutosFragment());
                 }
                 return false;

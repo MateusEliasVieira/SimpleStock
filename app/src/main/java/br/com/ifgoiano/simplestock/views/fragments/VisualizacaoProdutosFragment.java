@@ -15,7 +15,6 @@ import br.com.ifgoiano.simplestock.R;
 public class VisualizacaoProdutosFragment extends Fragment {
 
     public VisualizacaoProdutosFragment() {
-
     }
 
     @Nullable

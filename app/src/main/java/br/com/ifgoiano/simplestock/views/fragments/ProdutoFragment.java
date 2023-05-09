@@ -14,10 +14,9 @@ import br.com.ifgoiano.simplestock.R;
 
 public class ProdutoFragment extends Fragment {
 
-    public ProdutoFragment() {
+    public ProdutoFragment(){
 
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

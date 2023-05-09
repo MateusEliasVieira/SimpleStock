@@ -16,10 +16,9 @@ import br.com.ifgoiano.simplestock.R;
 
 public class EstoqueFragment extends Fragment {
 
-    public EstoqueFragment() {
+    public EstoqueFragment(){
 
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
