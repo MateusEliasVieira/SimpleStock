@@ -10,6 +10,7 @@
     <string name="menu_cadastro_produto">Produto</string>
     <string name="menu_visualizar_estoque">Visualizar</string>
     <string name="menu_gerenciador_estoque">Estoque</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="sair">Sair</string>
+
 </resources>
