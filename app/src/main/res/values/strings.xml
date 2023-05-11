@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Simple Stock</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Senha</string>
+
     <string name="title_button_login">Entrar</string>
-    <string name="text_create_account">Não tem uma conta? Cadastre-se</string>
+    <string name="buttonCadastrar">Salvar</string>
+
     <string name="novo_usuario">Novo Usuário</string>
 
     <string name="menu_cadastro_usuario">Usuário</string>
@@ -12,19 +12,19 @@
     <string name="menu_visualizar_estoque">Visualizar</string>
     <string name="menu_gerenciador_estoque">Estoque</string>
 
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Senha</string>
     <string name="hint_nome_usuario">Nome</string>
     <string name="hint_cpf_usuario">Cpf</string>
-
     <string name="hint_produto">Produto</string>
     <string name="hint_quantidade">Quantidade</string>
     <string name="hint_preco_custo">Varejo</string>
     <string name="hint_preco_venda">Venda</string>
     <string name="hint_descricao">Descrição</string>
-    <string name="text_selecione_imagem">Selecione uma Imagem</string>
+    <string name="text_selecione_imagem">Selecionar imagem!</string>
 
 
     <string name="sair">Sair</string>
-    <string name="buttonCadastrar">Salvar</string>
 
     <string-array name="nivel_acesso">
         <item>Acessibilidade</item>

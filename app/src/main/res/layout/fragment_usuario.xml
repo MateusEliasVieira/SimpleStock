@@ -15,14 +15,6 @@
         android:background="@color/card"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="40sp"
-            android:gravity="center"
-            android:textColor="@color/dark_blue"
-            android:text="@string/novo_usuario"/>
-
         <EditText
             android:id="@+id/editTextNomeUsuario"
             android:layout_width="match_parent"
@@ -35,7 +27,7 @@
             android:textSize="20sp"/>
 
         <Spinner
-            android:id="@+id/spinnerNivelAcesso"
+            android:id="@+id/spinnerNivelAcessoUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/borda_edittext"
@@ -56,6 +48,7 @@
             android:layout_marginTop="10dp"
             android:padding="15dp"
             android:textSize="20sp"/>
+
         <EditText
             android:id="@+id/editTextSenhaUsuario"
             android:layout_width="match_parent"
@@ -67,6 +60,7 @@
             android:inputType="textPassword"
             android:padding="15dp"
             android:textSize="20sp"/>
+
         <Button
             android:id="@+id/buttonCadastrarUsuario"
             android:layout_width="match_parent"
