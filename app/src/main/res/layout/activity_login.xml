@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#70C8F1"
+    android:background="@color/background_app"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
     tools:context=".views.LoginActivity">
 
     <LinearLayout
@@ -13,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="15dp"
+        android:background="@color/card"
         android:orientation="vertical">
 
         <ImageView
@@ -34,7 +37,7 @@
             android:textSize="20sp"
             android:padding="15dp"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/dark_blue"
             android:background="@drawable/campos_login"
             android:drawableLeft="@drawable/email"
             android:inputType="textEmailAddress"/>
@@ -51,7 +54,7 @@
             android:textSize="20sp"
             android:padding="15dp"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/dark_blue"
             android:background="@drawable/campos_login"
             android:drawableLeft="@drawable/senha"
             android:inputType="textPassword"/>

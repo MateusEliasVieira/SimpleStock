@@ -8,7 +8,7 @@
     <item
         android:id="@+id/item_cadastro_usuario"
         android:enabled="true"
-        android:icon="@drawable/usuario"
+        android:icon="@drawable/novo_usuario"
         android:title="@string/menu_cadastro_usuario"/>
     <item
         android:id="@+id/item_cadastro_fornecedor"

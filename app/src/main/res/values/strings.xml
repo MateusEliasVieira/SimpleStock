@@ -11,6 +11,19 @@
     <string name="menu_visualizar_estoque">Visualizar</string>
     <string name="menu_gerenciador_estoque">Estoque</string>
 
+    <string name="hint_nome_usuario">Nome</string>
+    <string name="hint_cpf_usuario">Cpf</string>
+
+    <string name="hint_produto">Produto</string>
+    <string name="hint_quantidade">Quantidade</string>
+
+
     <string name="sair">Sair</string>
+    <string name="buttonCadastrar">Cadastrar</string>
+
+    <string-array name="nivel_acesso">
+        <item>USUÁRIO</item>
+        <item>ADMINISTRADOR</item>
+    </string-array>
 
 </resources>
