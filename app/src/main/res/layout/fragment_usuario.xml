@@ -15,12 +15,13 @@
         android:background="@color/card"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageViewLogo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:background="@drawable/add_foto"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:textColor="@color/dark_blue"
+            android:text="@string/novo_usuario"/>
 
         <EditText
             android:id="@+id/editTextNomeUsuario"
@@ -41,6 +42,7 @@
             android:textSize="20sp"
             android:layout_marginTop="10dp"
             android:padding="15dp"
+            android:spinnerMode="dialog"
             android:entries="@array/nivel_acesso"/>
 
         <EditText

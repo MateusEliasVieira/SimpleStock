@@ -4,6 +4,7 @@
     <string name="hint_password">Senha</string>
     <string name="title_button_login">Entrar</string>
     <string name="text_create_account">Não tem uma conta? Cadastre-se</string>
+    <string name="novo_usuario">Novo Usuário</string>
 
     <string name="menu_cadastro_usuario">Usuário</string>
     <string name="menu_cadastro_fornecedor">Fornecedor</string>
@@ -16,14 +17,44 @@
 
     <string name="hint_produto">Produto</string>
     <string name="hint_quantidade">Quantidade</string>
+    <string name="hint_preco_custo">Varejo</string>
+    <string name="hint_preco_venda">Venda</string>
+    <string name="hint_descricao">Descrição</string>
+    <string name="text_selecione_imagem">Selecione uma Imagem</string>
 
 
     <string name="sair">Sair</string>
-    <string name="buttonCadastrar">Cadastrar</string>
+    <string name="buttonCadastrar">Salvar</string>
 
     <string-array name="nivel_acesso">
+        <item>Acessibilidade</item>
         <item>USUÁRIO</item>
         <item>ADMINISTRADOR</item>
+    </string-array>
+
+    <string-array name="categorias_produto">
+        <item>Categoria</item>
+        <item>Sala de estar</item>
+        <item>Sala de jantar</item>
+        <item>Quarto</item>
+        <item>Cozinha</item>
+        <item>Home office</item>
+        <item>Eletrodomésticos</item>
+        <item>Iluminação</item>
+        <item>Decoração</item>
+        <item>Cama</item>
+        <item>Mesa</item>
+        <item>Cadeira</item>
+    </string-array>
+
+    <string-array name="fornecedor_produto">
+        <item>Fornecedor</item>
+        <item>Henn</item>
+        <item>Colormaq</item>
+        <item>Colormaq</item>
+        <item>Colormaq</item>
+        <item>Colormaq</item>
+        <item>Colormaq</item>
     </string-array>
 
 </resources>

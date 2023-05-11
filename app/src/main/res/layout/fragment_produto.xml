@@ -15,13 +15,6 @@
         android:background="@color/card"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageViewLogo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:background="@drawable/add_foto"/>
-
         <EditText
             android:id="@+id/editTextNomeProduto"
             android:layout_width="match_parent"
@@ -33,38 +26,119 @@
             android:padding="15dp"
             android:textSize="20sp"/>
 
-        <Spinner
-            android:id="@+id/spinnerNivelAcesso"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/borda_edittext"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:padding="15dp"
-            android:entries="@array/nivel_acesso"/>
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/spinnerNivelAcesso"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@drawable/borda_edittext"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:spinnerMode="dialog"
+                android:entries="@array/categorias_produto"/>
+
+            <Spinner
+                android:id="@+id/spinnerFornecedor"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/borda_edittext"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:spinnerMode="dialog"
+                android:entries="@array/fornecedor_produto"/>
+        </LinearLayout>
 
         <EditText
-            android:id="@+id/editTextEmailUsuario"
+            android:id="@+id/editTextQuantidadeProduto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/borda_edittext"
             android:drawableLeft="@drawable/email_cadastro_usuario"
-            android:hint="@string/hint_email"
+            android:hint="@string/hint_quantidade"
             android:inputType="textEmailAddress"
             android:layout_marginTop="10dp"
             android:padding="15dp"
             android:textSize="20sp"/>
-        <EditText
-            android:id="@+id/editTextSenhaUsuario"
+
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextPrecoCusto"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@drawable/borda_edittext"
             android:drawableLeft="@drawable/senha_cadastro_usuario"
-            android:hint="@string/hint_password"
+            android:hint="@string/hint_preco_custo"
             android:layout_marginTop="10dp"
             android:inputType="textPassword"
             android:padding="15dp"
             android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/editTextPrecoVenda"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/borda_edittext"
+            android:drawableLeft="@drawable/senha_cadastro_usuario"
+            android:hint="@string/hint_preco_venda"
+            android:layout_marginTop="10dp"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextDescricaoProduto"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/borda_edittext"
+            android:hint="@string/hint_descricao"
+            android:layout_marginTop="10dp"
+            android:gravity="top|start"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:textSize="20sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageViewLogo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:background="@drawable/add_foto"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:textSize="25sp"
+                android:text="@string/text_selecione_imagem"/>
+
+        </LinearLayout>
+
+
+
         <Button
             android:id="@+id/buttonCadastrarUsuario"
             android:layout_width="match_parent"
