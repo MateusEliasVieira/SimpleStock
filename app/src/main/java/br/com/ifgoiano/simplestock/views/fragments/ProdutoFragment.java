@@ -1,7 +1,7 @@
 package br.com.ifgoiano.simplestock.views.fragments;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,17 +12,35 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import br.com.ifgoiano.simplestock.R;
+import br.com.ifgoiano.simplestock.dao.ProdutoDaoRepository;
+import br.com.ifgoiano.simplestock.model.ProdutoModel;
 
 public class ProdutoFragment extends Fragment {
 
+    private ProdutoDaoRepository produtoDaoRepository;
+    private EditText editTextNomeProduto;
+    private Spinner spinnerCategoriaProduto;
+    private Spinner spinnerFornecedor;
+    private EditText editTextQuantidadeProduto;
+    private EditText editTextPrecoVarejo;
+    private EditText editTextPrecoVenda;
+    private EditText editTextDescricaoProduto;
+    private TextView textViewSelecionarImagem;
     private ImageView imageViewFotoProduto;
-    public ProdutoFragment(){
+    private Button buttonCadastrarProduto;
+
+    public ProdutoFragment() {
 
     }
 
@@ -35,37 +53,39 @@ public class ProdutoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_produto, container, false);
+        produtoDaoRepository = new ProdutoDaoRepository();
+        editTextNomeProduto = view.findViewById(R.id.editTextNomeProduto);
+        spinnerCategoriaProduto = view.findViewById(R.id.spinnerCategoriaProduto);
+        spinnerFornecedor = view.findViewById(R.id.spinnerFornecedor);
+        editTextQuantidadeProduto = view.findViewById(R.id.editTextQuantidadeProduto);
+        editTextPrecoVarejo = view.findViewById(R.id.editTextPrecoVarejo);
+        editTextPrecoVenda = view.findViewById(R.id.editTextPrecoVenda);
+        editTextDescricaoProduto = view.findViewById(R.id.editTextDescricaoProduto);
+        textViewSelecionarImagem = view.findViewById(R.id.textViewSelecionarImagem);
         imageViewFotoProduto = view.findViewById(R.id.imageViewFotoProduto);
+        imageViewFotoProduto.setDrawingCacheEnabled(true); // Habilita o cache de desenho para o ImageView
+        imageViewFotoProduto.buildDrawingCache(); // Constrói o cache de desenho
+        buttonCadastrarProduto = view.findViewById(R.id.buttonCadastrarProduto);
         addEventImageProduct();
+        addEventButtonCad();
         return view;
     }
 
-    private void addEventImageProduct(){
-        imageViewFotoProduto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
-                alert.setTitle("Selecionar Imagem");
-                alert.setMessage("Deseja selecionar a imagem da galeria?");
+    private void addEventImageProduct() {
+        textViewSelecionarImagem.setOnClickListener(v -> {
+            AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
+            alert.setTitle("Selecionar Imagem");
+            alert.setMessage("Deseja selecionar a imagem da galeria?");
 
-                alert.setNeutralButton("Remover", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        imageViewFotoProduto.setImageURI(null);
-                    }
-                });
+            alert.setNeutralButton("Remover", (dialog, which) -> imageViewFotoProduto.setImageURI(null));
 
-                alert.setNegativeButton("Não",null);
-                alert.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // acessa o metodo launch do objeto e passa o caminho para abrir
-                        selectImageLauncher.launch("image/*");
-                    }
-                });
+            alert.setNegativeButton("Não", null);
+            alert.setPositiveButton("Sim", (dialog, which) -> {
+                // acessa o metodo launch do objeto e passa o caminho para abrir
+                selectImageLauncher.launch("image/*");
+            });
 
-                alert.show();
-            }
+            alert.show();
         });
     }
 
@@ -82,6 +102,79 @@ public class ProdutoFragment extends Fragment {
                 }
             });
 
+    private void addEventButtonCad() {
+        buttonCadastrarProduto.setOnClickListener(v -> {
+            try {
+                String nomeProduto = editTextNomeProduto.getText().toString();
+                String categoriaProduto = spinnerCategoriaProduto.getSelectedItem().toString();
+                String fornecedor = spinnerFornecedor.getSelectedItem().toString();
+
+                String qtd = editTextQuantidadeProduto.getText().toString();
+                int quantidadeProduto = 0;
+                if(!qtd.isEmpty()){
+                    quantidadeProduto = Integer.parseInt(qtd);
+                }
+
+                String pv = editTextPrecoVarejo.getText().toString();
+                double precoVarejo = 0;
+                if(!pv.isEmpty()){
+                    precoVarejo = Double.parseDouble(pv);
+                }
+
+                String pvd = editTextPrecoVenda.getText().toString();
+                double precoVenda = 0;
+                if(!pvd.isEmpty()){
+                    precoVenda = Double.parseDouble(pvd);
+                }
+
+                String descricao = editTextDescricaoProduto.getText().toString();
+                Bitmap imagem = imageViewFotoProduto.getDrawingCache(); // Obtém a imagem do cache de desenho em um Bitmap
+
+                // verificando apenas campos obrigatorios
+                if (nomeProduto.isEmpty()) {
+                    showAlert("Informe o nome do produto!");
+                } else if (categoriaProduto.isEmpty() || categoriaProduto.trim().equals("Categoria")) {
+                    showAlert("Selecione a categoria do produto!");
+                } else if (fornecedor.isEmpty() || fornecedor.trim().equals("Fornecedor")) {
+                    showAlert("Selecione o fornecedor do produto!");
+                } else if (quantidadeProduto == 0) {
+                    showAlert("Informe a quantidade do produto!");
+                } else if (precoVarejo == 0) {
+                    showAlert("Informe o preço de custo (varejo) do produto!");
+                } else if (precoVenda == 0) {
+                    showAlert("Informe o preço de venda do produto!");
+                } else {
+                    //imageViewFotoProduto.setDrawingCacheEnabled(false); // Desabilita o cache de desenho para liberar a memória
+                    // Tudo ok
+                    String urlImage = "";
+                    ProdutoModel produtoModel = new ProdutoModel(nomeProduto, categoriaProduto, fornecedor, quantidadeProduto, precoVarejo, precoVenda, descricao, urlImage, imagem);
+                    // Enviar para salvar
+                     produtoDaoRepository.save(produtoModel);
+//                    if(result){
+//                        // mensagem de sucesso
+//                        showAlert("Produto salvo com sucesso!");
+//                    }else{
+//                        // mensagem de erro
+//                        showAlert("Erro ao salvar produto!");
+//                    }
+                }
+            }catch(NumberFormatException e){
+                Log.d("ERRO",e.getMessage());
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void showAlert(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, id) -> {
+                    // fecha o diálogo
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
 
 }

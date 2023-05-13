@@ -64,7 +64,7 @@
             android:background="@drawable/borda_edittext"
             android:drawableLeft="@drawable/quantidade_produto"
             android:hint="@string/hint_quantidade"
-            android:inputType="textEmailAddress"
+            android:inputType="number"
             android:layout_marginTop="10dp"
             android:padding="15dp"
             android:textSize="20sp"/>
@@ -75,7 +75,7 @@
             android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editTextPrecoCusto"
+            android:id="@+id/editTextPrecoVarejo"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
             android:drawableLeft="@drawable/simbolo_dinheiro"
             android:hint="@string/hint_preco_custo"
             android:layout_marginTop="10dp"
-            android:inputType="textPassword"
+            android:inputType="numberDecimal"
             android:padding="15dp"
             android:textSize="20sp"/>
 
@@ -97,7 +97,7 @@
             android:drawableLeft="@drawable/simbolo_dinheiro"
             android:hint="@string/hint_preco_venda"
             android:layout_marginTop="10dp"
-            android:inputType="textPassword"
+            android:inputType="numberDecimal"
             android:padding="15dp"
             android:textSize="20sp"/>
 
@@ -111,7 +111,7 @@
             android:hint="@string/hint_descricao"
             android:layout_marginTop="10dp"
             android:gravity="top|start"
-            android:inputType="textPassword"
+            android:inputType="textAutoComplete"
             android:padding="15dp"
             android:textSize="20sp"/>
 
@@ -125,10 +125,10 @@
                 android:id="@+id/imageViewFotoProduto"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:background="@drawable/add_foto"/>
+                android:layout_gravity="center"/>
 
             <TextView
+                android:id="@+id/textViewSelecionarImagem"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"

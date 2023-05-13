@@ -2,8 +2,11 @@ package br.com.ifgoiano.simplestock.model;
 
 import android.graphics.Bitmap;
 
+import java.util.HashMap;
+import java.util.Map;
 
-public class ProdutoModel{
+
+public class ProdutoModel {
 
     private String id;
     private String produto;
@@ -13,6 +16,7 @@ public class ProdutoModel{
     private double varejo;
     private double venda;
     private String descricao;
+    private String urlImage;
     private Bitmap imagem;
 
     public ProdutoModel() {
@@ -27,11 +31,11 @@ public class ProdutoModel{
         this.varejo = varejo;
         this.venda = venda;
         this.descricao = descricao;
+        this.urlImage = "";
         this.imagem = imagem;
     }
 
-    public ProdutoModel(String id, String produto, String categoria, String fornecedor, int quantidade, double varejo, double venda, String descricao, Bitmap imagem) {
-        this.id = id;
+    public ProdutoModel(String produto, String categoria, String fornecedor, int quantidade, double varejo, double venda, String descricao, String urlImage, Bitmap imagem) {
         this.produto = produto;
         this.categoria = categoria;
         this.fornecedor = fornecedor;
@@ -39,6 +43,7 @@ public class ProdutoModel{
         this.varejo = varejo;
         this.venda = venda;
         this.descricao = descricao;
+        this.urlImage = urlImage;
         this.imagem = imagem;
     }
 
@@ -106,6 +111,14 @@ public class ProdutoModel{
         this.descricao = descricao;
     }
 
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
+
     public Bitmap getImagem() {
         return imagem;
     }
@@ -113,4 +126,18 @@ public class ProdutoModel{
     public void setImagem(Bitmap imagem) {
         this.imagem = imagem;
     }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("produto", produto);
+        map.put("categoria", categoria);
+        map.put("fornecedor", fornecedor);
+        map.put("quantidade", quantidade);
+        map.put("varejo", varejo);
+        map.put("venda", venda);
+        map.put("descricao", descricao);
+        map.put("urlimage", urlImage);
+        return map;
+    }
+
 }
