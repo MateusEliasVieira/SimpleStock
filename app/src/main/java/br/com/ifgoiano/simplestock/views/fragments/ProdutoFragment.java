@@ -1,7 +1,6 @@
 package br.com.ifgoiano.simplestock.views.fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import br.com.ifgoiano.simplestock.R;
-import br.com.ifgoiano.simplestock.dao.ProdutoDaoRepository;
+import br.com.ifgoiano.simplestock.dao.impl.ProdutoDaoRepository;
 import br.com.ifgoiano.simplestock.model.ProdutoModel;
 
 public class ProdutoFragment extends Fragment {
@@ -115,19 +114,19 @@ public class ProdutoFragment extends Fragment {
 
                 String qtd = editTextQuantidadeProduto.getText().toString();
                 int quantidadeProduto = 0;
-                if(!qtd.isEmpty()){
+                if (!qtd.isEmpty()) {
                     quantidadeProduto = Integer.parseInt(qtd);
                 }
 
                 String pv = editTextPrecoVarejo.getText().toString();
                 double precoVarejo = 0;
-                if(!pv.isEmpty()){
+                if (!pv.isEmpty()) {
                     precoVarejo = Double.parseDouble(pv);
                 }
 
                 String pvd = editTextPrecoVenda.getText().toString();
                 double precoVenda = 0;
-                if(!pvd.isEmpty()){
+                if (!pvd.isEmpty()) {
                     precoVenda = Double.parseDouble(pvd);
                 }
 
@@ -155,17 +154,18 @@ public class ProdutoFragment extends Fragment {
                     produtoDaoRepository.save(produtoModel, new OnCompleteListener<Boolean>() {
                         @Override
                         public void onComplete(@NonNull Task<Boolean> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 showAlert("Produto salvo com sucesso!");
-                            }else{
+                                cleanViews();
+                            } else {
                                 showAlert("Erro ao salvar produto!");
                             }
                         }
                     });
 
                 }
-            }catch(NumberFormatException e){
-                Log.d("ERRO",e.getMessage());
+            } catch (NumberFormatException e) {
+                Log.d("ERRO", e.getMessage());
                 e.printStackTrace();
             }
         });
@@ -178,6 +178,18 @@ public class ProdutoFragment extends Fragment {
                 .setPositiveButton("OK", null);
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void cleanViews() {
+        editTextNomeProduto.setText("");
+        spinnerCategoriaProduto.setSelection(0);
+        spinnerFornecedor.setSelection(0);
+        editTextQuantidadeProduto.setText("");
+        editTextPrecoVarejo.setText("");
+        editTextPrecoVenda.setText("");
+        editTextDescricaoProduto.setText("");
+        imageViewFotoProduto.setBackground(null);
+        imageViewFotoProduto.setImageURI(null);
     }
 
 

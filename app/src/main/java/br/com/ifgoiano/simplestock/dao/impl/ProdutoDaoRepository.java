@@ -1,11 +1,6 @@
-package br.com.ifgoiano.simplestock.dao;
+package br.com.ifgoiano.simplestock.dao.impl;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-
-import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Tasks;
@@ -17,11 +12,11 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.Map;
 
-import br.com.ifgoiano.simplestock.R;
+import br.com.ifgoiano.simplestock.dao.ProdutoDaoInterface;
 import br.com.ifgoiano.simplestock.model.ProdutoModel;
 import br.com.ifgoiano.simplestock.util.Util;
 
-public class ProdutoDaoRepository {
+public class ProdutoDaoRepository implements ProdutoDaoInterface {
 
     private FirebaseFirestore db;
     private FirebaseStorage storage;
@@ -62,6 +57,26 @@ public class ProdutoDaoRepository {
         });
 
         return false;
+    }
+
+    @Override
+    public void update(ProdutoModel produtoModel) {
+
+    }
+
+    @Override
+    public void findAll() {
+
+    }
+
+    @Override
+    public void findByName() {
+
+    }
+
+    @Override
+    public void delete(String name_document) {
+
     }
 
 
