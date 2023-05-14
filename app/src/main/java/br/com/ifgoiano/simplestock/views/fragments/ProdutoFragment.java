@@ -1,6 +1,7 @@
 package br.com.ifgoiano.simplestock.views.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import br.com.ifgoiano.simplestock.R;
 import br.com.ifgoiano.simplestock.dao.ProdutoDaoRepository;
@@ -53,7 +57,7 @@ public class ProdutoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_produto, container, false);
-        produtoDaoRepository = new ProdutoDaoRepository();
+        produtoDaoRepository = new ProdutoDaoRepository(getContext());
         editTextNomeProduto = view.findViewById(R.id.editTextNomeProduto);
         spinnerCategoriaProduto = view.findViewById(R.id.spinnerCategoriaProduto);
         spinnerFornecedor = view.findViewById(R.id.spinnerFornecedor);
@@ -144,19 +148,21 @@ public class ProdutoFragment extends Fragment {
                 } else if (precoVenda == 0) {
                     showAlert("Informe o preço de venda do produto!");
                 } else {
-                    //imageViewFotoProduto.setDrawingCacheEnabled(false); // Desabilita o cache de desenho para liberar a memória
                     // Tudo ok
                     String urlImage = "";
                     ProdutoModel produtoModel = new ProdutoModel(nomeProduto, categoriaProduto, fornecedor, quantidadeProduto, precoVarejo, precoVenda, descricao, urlImage, imagem);
                     // Enviar para salvar
-                     produtoDaoRepository.save(produtoModel);
-//                    if(result){
-//                        // mensagem de sucesso
-//                        showAlert("Produto salvo com sucesso!");
-//                    }else{
-//                        // mensagem de erro
-//                        showAlert("Erro ao salvar produto!");
-//                    }
+                    produtoDaoRepository.save(produtoModel, new OnCompleteListener<Boolean>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Boolean> task) {
+                            if(task.isSuccessful()){
+                                showAlert("Produto salvo com sucesso!");
+                            }else{
+                                showAlert("Erro ao salvar produto!");
+                            }
+                        }
+                    });
+
                 }
             }catch(NumberFormatException e){
                 Log.d("ERRO",e.getMessage());
@@ -169,9 +175,7 @@ public class ProdutoFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton("OK", (dialog, id) -> {
-                    // fecha o diálogo
-                });
+                .setPositiveButton("OK", null);
         AlertDialog alert = builder.create();
         alert.show();
     }

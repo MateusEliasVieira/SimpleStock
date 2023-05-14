@@ -1,86 +1,67 @@
 package br.com.ifgoiano.simplestock.dao;
 
-import android.app.AlertDialog;
-import android.net.Uri;
-import android.util.Log;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
-import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
+import br.com.ifgoiano.simplestock.R;
 import br.com.ifgoiano.simplestock.model.ProdutoModel;
 import br.com.ifgoiano.simplestock.util.Util;
-import br.com.ifgoiano.simplestock.views.HomeActivity;
 
 public class ProdutoDaoRepository {
 
     private FirebaseFirestore db;
     private FirebaseStorage storage;
-    private boolean result;
+    private StorageReference storageRef;
+    private CollectionReference collectionReference;
     private byte[] imageBytes;
-    private String imageUrl;
+    private Context context;
 
-    public ProdutoDaoRepository() {
+    public ProdutoDaoRepository(Context context) {
+        this.context = context;
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
+        collectionReference = db.collection("produto");
     }
 
-    public void save(ProdutoModel produtoModel) {
-        try {
+    public boolean save(ProdutoModel produtoModel, OnCompleteListener<Boolean> listenerResult) {
 
-            if (produtoModel.getImagem() != null) {
+        String nameImage = produtoModel.getProduto().replace(" ", "_").trim() + ".jpg";
+        StorageReference imageRef = storageRef.child(nameImage);
+        imageBytes = new Util().convertBitmapForBytes(produtoModel.getImagem());
+        UploadTask uploadTask = imageRef.putBytes(imageBytes);// Envia a imagem para ser salva
 
-                storage = FirebaseStorage.getInstance();
-                StorageReference storageRef = storage.getReference();
-                String nameImage = produtoModel.getProduto().replace(" ", "_").trim() + ".jpg";
-                StorageReference imageRef = storageRef.child(nameImage);
-                imageBytes = new Util().convertBitmapForBytes(produtoModel.getImagem());
-                UploadTask uploadTask = imageRef.putBytes(imageBytes);// envia a imagem para ser salva
-
-                // adiciona os listeners ao uploadTask para obter a URL de download da imagem
-                uploadTask.addOnSuccessListener((taskSnapshot) -> {
-                    // se salvou, obtenho a url de download e verifico se foi possível buscar essa url
-                    imageRef.getDownloadUrl().addOnSuccessListener((uri) -> {
-                        imageUrl = uri.toString();
-                        CollectionReference collectionReference = db.collection("produto");
-                        Map<String, Object> produtoMap = produtoModel.toMap();
-                        produtoMap.put("imagemUrl", imageUrl);
-                        produtoMap.forEach((key, value) -> {
-                            Log.d("Chave " + key.toString(), value.toString());
-                        });
-                        Task<DocumentReference> task = collectionReference.add(produtoMap);
-                        task.addOnCompleteListener((taskSave) -> {
-                            if (taskSave.isSuccessful()) {
-                                Log.d("OK", "Salvou");
-                            }
-                        });
-                        task.addOnFailureListener((err) -> {
-                            Log.d("Merda", "Não Salvou");
-                        });
-
-                    });
+        // Adiciona os listeners ao uploadTask para obter a URL de download da imagem
+        uploadTask.addOnSuccessListener((taskSnapshot) -> {
+            // Se salvou, obtenho a url de download e verifico se foi possível buscar essa url
+            imageRef.getDownloadUrl().addOnSuccessListener((uri) -> {
+                produtoModel.setUrlImage(uri.toString()); // Adicionamos a url da imagem salva no storage ao nosso objeto do produto
+                Map<String, Object> produtoMap = produtoModel.toMap();
+                collectionReference.document(produtoModel.getProduto()).set(produtoMap).addOnSuccessListener((taskVoid) -> {
+                    imageBytes = null;// Limpamos o conteudo dela
+                    listenerResult.onComplete(Tasks.forResult(true));
                 });
+            }).addOnFailureListener((exception) -> {
+                imageBytes = null;
+                listenerResult.onComplete(Tasks.forResult(false)); // informa ao listener que o processo foi concluído com falha
+            });
+        });
 
-            }
-
-        } catch (Exception e) {
-            Log.d("Exceção", e.getMessage());
-            e.printStackTrace();
-        }
+        return false;
     }
 
 
