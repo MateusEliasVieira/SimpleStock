@@ -7,6 +7,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Map;
+
 import br.com.ifgoiano.simplestock.dao.UsuarioService;
 import br.com.ifgoiano.simplestock.model.UsuarioModel;
 
@@ -26,7 +28,16 @@ public class UsuarioServiceImpl implements UsuarioService {
         Task<AuthResult> task = firebaseAuth.createUserWithEmailAndPassword(usuarioModel.getEmail(), usuarioModel.getSenha());
         task.addOnSuccessListener(result -> {
             if(task.isSuccessful()){
-                listenerResult.onComplete(Tasks.forResult(true));
+                // salvamos na collection o usuario(nome,acess e email)
+                Map<String,Object> map = usuarioModel.toMap();
+                firebaseFirestore.collection("usuario")
+                        .document(usuarioModel.getEmail()).set(map)
+                        .addOnSuccessListener(res -> {
+                            listenerResult.onComplete(Tasks.forResult(true));
+                        })
+                        .addOnFailureListener(failure -> {
+                            listenerResult.onComplete(Tasks.forResult(false));
+                        });
             }
         }).addOnFailureListener(failure -> {
             listenerResult.onComplete(Tasks.forResult(false));

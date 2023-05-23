@@ -1,6 +1,9 @@
 package br.com.ifgoiano.simplestock.model;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class UsuarioModel{
 
     private String id;
@@ -66,5 +69,13 @@ public class UsuarioModel{
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Map<String,Object> toMap(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("nome",nome);
+        map.put("acessibilidade",acessibilidade);
+        map.put("email",email);
+        return map;
     }
 }
