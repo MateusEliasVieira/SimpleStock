@@ -17,6 +17,9 @@
     <string name="hint_nome_usuario">Nome</string>
     <string name="hint_cpf_usuario">Cpf</string>
     <string name="hint_produto">Produto</string>
+    <string name="hint_fornecedor">Fornecedor</string>
+    <string name="hint_cnpj">CNPJ</string>
+    <string name="hint_telefone">Telefone</string>
     <string name="hint_quantidade">Quantidade</string>
     <string name="hint_preco_custo">Varejo</string>
     <string name="hint_preco_venda">Venda</string>

@@ -5,11 +5,77 @@
     android:layout_height="match_parent"
     tools:context=".views.fragments.FornecedorFragment">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayoutFornecedor"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fragmento de Fornecedor"
-        android:textSize="30sp" />
+        android:layout_marginTop="30dp"
+        android:background="@color/card"
+        android:elevation="20dp"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/editTextNomeFornecedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/borda_edittext"
+            android:drawableLeft="@drawable/nome_cadastro_usuario"
+            android:hint="@string/hint_fornecedor"
+            android:padding="15dp"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editTextCnpjFornecedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/borda_edittext"
+            android:drawableLeft="@drawable/cnpj"
+            android:hint="@string/hint_cnpj"
+            android:inputType="number"
+            android:padding="15dp"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editTextEmailFornecedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/borda_edittext"
+            android:drawableLeft="@drawable/email_cadastro_usuario"
+            android:hint="@string/hint_email"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editTextTelefoneFornecedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/borda_edittext"
+            android:drawableLeft="@drawable/telefone"
+            android:hint="@string/hint_telefone"
+            android:inputType="numberDecimal"
+            android:padding="15dp"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/buttonCadastrarFornecedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/botao_arredondado"
+            android:padding="8dp"
+            android:text="@string/buttonCadastrar"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
+    </LinearLayout>
 
 </FrameLayout>
