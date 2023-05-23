@@ -12,11 +12,11 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.Map;
 
-import br.com.ifgoiano.simplestock.dao.ProdutoDaoInterface;
+import br.com.ifgoiano.simplestock.dao.ProdutoService;
 import br.com.ifgoiano.simplestock.model.ProdutoModel;
 import br.com.ifgoiano.simplestock.util.Util;
 
-public class ProdutoDaoRepository implements ProdutoDaoInterface {
+public class ProdutoServiceImpl implements ProdutoService {
 
     private FirebaseFirestore db;
     private FirebaseStorage storage;
@@ -25,7 +25,7 @@ public class ProdutoDaoRepository implements ProdutoDaoInterface {
     private byte[] imageBytes;
     private Context context;
 
-    public ProdutoDaoRepository(Context context) {
+    public ProdutoServiceImpl(Context context) {
         this.context = context;
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();

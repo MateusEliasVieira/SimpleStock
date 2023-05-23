@@ -26,12 +26,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import br.com.ifgoiano.simplestock.R;
-import br.com.ifgoiano.simplestock.dao.impl.ProdutoDaoRepository;
+import br.com.ifgoiano.simplestock.dao.impl.ProdutoServiceImpl;
 import br.com.ifgoiano.simplestock.model.ProdutoModel;
 
 public class ProdutoFragment extends Fragment {
 
-    private ProdutoDaoRepository produtoDaoRepository;
+    private ProdutoServiceImpl produtoDaoRepository;
     private EditText editTextNomeProduto;
     private Spinner spinnerCategoriaProduto;
     private Spinner spinnerFornecedor;
@@ -56,7 +56,7 @@ public class ProdutoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_produto, container, false);
-        produtoDaoRepository = new ProdutoDaoRepository(getContext());
+        produtoDaoRepository = new ProdutoServiceImpl(getContext());
         editTextNomeProduto = view.findViewById(R.id.editTextNomeProduto);
         spinnerCategoriaProduto = view.findViewById(R.id.spinnerCategoriaProduto);
         spinnerFornecedor = view.findViewById(R.id.spinnerFornecedor);
