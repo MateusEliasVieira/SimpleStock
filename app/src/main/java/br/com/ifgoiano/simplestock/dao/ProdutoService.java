@@ -2,6 +2,9 @@ package br.com.ifgoiano.simplestock.dao;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 import br.com.ifgoiano.simplestock.model.ProdutoModel;
 
 public interface ProdutoService {
@@ -10,7 +13,7 @@ public interface ProdutoService {
 
     public void update(ProdutoModel produtoModel);
 
-    public void findAll();
+    public CompletableFuture<List<ProdutoModel>> findAll();
 
     public void findByName();
 

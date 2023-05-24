@@ -1,16 +1,26 @@
 package br.com.ifgoiano.simplestock.dao.impl;
 
 import android.content.Context;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import br.com.ifgoiano.simplestock.dao.ProdutoService;
 import br.com.ifgoiano.simplestock.model.ProdutoModel;
@@ -64,10 +74,44 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     }
 
-    @Override
-    public void findAll() {
+    public CompletableFuture<List<ProdutoModel>> findAll() {
+        CompletableFuture<List<ProdutoModel>> future = new CompletableFuture<>();
 
+        collectionReference.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            List<ProdutoModel> listProdutoModel = new ArrayList<>();
+            List<DocumentSnapshot> listDocuments = queryDocumentSnapshots.getDocuments();
+            int length = listDocuments.size();
+            for (int i = 0; i < length; i++){
+                DocumentSnapshot ds = listDocuments.get(i);
+
+                String produto = ds.getString("produto");
+                int quantidade = ds.getLong("quantidade").intValue();
+                String fornecedor = ds.getString("fornecedor");
+                String categoria = ds.getString("categoria");
+                double varejo = ds.getDouble("varejo");
+                double venda = ds.getDouble("venda");
+                String descricao = ds.getString("descricao");
+                String urlimage = ds.getString("urlimage");
+
+                ProdutoModel produtoModel = new ProdutoModel();
+                produtoModel.setProduto(produto);
+                produtoModel.setQuantidade(quantidade);
+                produtoModel.setFornecedor(fornecedor);
+                produtoModel.setCategoria(categoria);
+                produtoModel.setVarejo(varejo);
+                produtoModel.setVenda(venda);
+                produtoModel.setDescricao(descricao);
+                produtoModel.setUrlImage(urlimage);
+
+                listProdutoModel.add(produtoModel);
+            }
+
+            future.complete(listProdutoModel);
+        }).addOnFailureListener(e -> future.completeExceptionally(e));
+
+        return future;
     }
+
 
     @Override
     public void findByName() {

@@ -29,43 +29,36 @@
                 android:id="@+id/editTextNomeProdutoRecyclerViewAdapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome do Produto"
                 android:textSize="18sp"/>
             <TextView
                 android:id="@+id/editTextQuantidadeProdutoRecyclerViewAdapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Quantidade do Produto"
                 android:textSize="18sp"/>
             <TextView
                 android:id="@+id/editTextValorVarejoProdutoRecyclerViewAdapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Valor varejo do Produto"
                 android:textSize="18sp"/>
             <TextView
                 android:id="@+id/editTextValorVendaProdutoRecyclerViewAdapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Valor venda do Produto"
                 android:textSize="18sp"/>
             <TextView
                 android:id="@+id/editTextFornecedorProdutoRecyclerViewAdapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fornecedor do Produto"
                 android:textSize="18sp"/>
             <TextView
                 android:id="@+id/editTextCategoriaProdutoRecyclerViewAdapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="categoria do Produto"
                 android:textSize="18sp"/>
             <TextView
                 android:id="@+id/editTextDescricaoProdutoRecyclerViewAdapter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descrição do Produto"
                 android:textSize="18sp"/>
         </LinearLayout>
 

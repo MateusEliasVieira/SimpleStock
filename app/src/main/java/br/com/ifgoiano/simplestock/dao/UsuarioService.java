@@ -8,4 +8,5 @@ public interface UsuarioService {
 
     public boolean addUser(UsuarioModel usuarioModel, OnCompleteListener<Boolean> listenerResult);
 
+
 }

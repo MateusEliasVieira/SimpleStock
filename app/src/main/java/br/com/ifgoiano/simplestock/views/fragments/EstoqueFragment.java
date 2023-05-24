@@ -9,11 +9,16 @@ import androidx.lifecycle.viewmodel.CreationExtras;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import br.com.ifgoiano.simplestock.R;
+import br.com.ifgoiano.simplestock.dao.impl.ProdutoServiceImpl;
+import br.com.ifgoiano.simplestock.model.ProdutoModel;
 import br.com.ifgoiano.simplestock.util.ProdutoAdapter;
 
 
@@ -28,7 +33,7 @@ public class EstoqueFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_estoque, container, false);
-        produtoAdapter = new ProdutoAdapter();
+        produtoAdapter = new ProdutoAdapter(getContext());
         recyclerView = view.findViewById(R.id.recyclerViewProdutosEstoque);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
