@@ -81,7 +81,7 @@ public class ProdutoServiceImpl implements ProdutoService {
             List<ProdutoModel> listProdutoModel = new ArrayList<>();
             List<DocumentSnapshot> listDocuments = queryDocumentSnapshots.getDocuments();
             int length = listDocuments.size();
-            for (int i = 0; i < length; i++){
+            for (int i = 0; i < length; i++) {
                 DocumentSnapshot ds = listDocuments.get(i);
 
                 String produto = ds.getString("produto");
@@ -111,7 +111,6 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         return future;
     }
-
 
     @Override
     public void findByName() {

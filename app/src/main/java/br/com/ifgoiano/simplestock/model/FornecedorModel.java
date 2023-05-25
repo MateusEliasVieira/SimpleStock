@@ -1,6 +1,9 @@
 package br.com.ifgoiano.simplestock.model;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FornecedorModel {
 
     private String id;
@@ -65,5 +68,14 @@ public class FornecedorModel {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public Map<String,Object> toMap(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("fornecedor",fornecedor);
+        map.put("cnpj",cnpj);
+        map.put("email",email);
+        map.put("telefone",telefone);
+        return map;
     }
 }

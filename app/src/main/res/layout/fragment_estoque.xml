@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
@@ -16,7 +16,7 @@
             android:layout_marginTop="15dp"
             android:background="@color/card"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/textViewValorEstoquePrecoVarejo"
@@ -43,15 +43,15 @@
             android:layout_marginTop="15dp"
             android:background="@color/card"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="20dp">
 
             <EditText
                 android:id="@+id/editTextPesquisaEstoque"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
                 android:background="@drawable/borda_edittext"
                 android:drawableLeft="@drawable/lupa"
+                android:padding="15dp"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -86,13 +86,23 @@
 
             </LinearLayout>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/botao_arredondado"
+                android:padding="10dp"
+                android:text="@string/button_pesquisar"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
+
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewProdutosEstoque"
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp" />
 
     </LinearLayout>
 

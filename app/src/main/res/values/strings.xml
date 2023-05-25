@@ -3,6 +3,7 @@
 
     <string name="title_button_login">Entrar</string>
     <string name="buttonCadastrar">Salvar</string>
+    <string name="button_pesquisar">Pesquisar</string>
 
     <string name="novo_usuario">Novo Usuário</string>
 

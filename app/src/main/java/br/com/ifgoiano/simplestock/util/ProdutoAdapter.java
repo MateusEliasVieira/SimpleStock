@@ -1,5 +1,6 @@
 package br.com.ifgoiano.simplestock.util;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Layout;
@@ -13,7 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import br.com.ifgoiano.simplestock.R;
 import br.com.ifgoiano.simplestock.dao.ProdutoService;
@@ -23,32 +28,38 @@ import br.com.ifgoiano.simplestock.model.ProdutoModel;
 public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder> {
 
     private ProdutoService produtoService;
+    private Context context;
 
     public ProdutoAdapter(Context context) {
-        produtoService = new ProdutoServiceImpl(context);
+        this.context = context;
+        produtoService = new ProdutoServiceImpl(this.context);
+
     }
 
     @NonNull
     @Override
     public ProdutoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewList = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_produtos, parent, false);
-
         return new ProdutoViewHolder(viewList);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProdutoViewHolder holder, int position) {
         produtoService.findAll().thenAccept(listProdutoModel -> {
-            // Faça algo com a lista de produtos
+
             ProdutoModel p = listProdutoModel.get(position);
+            // Faça algo com a lista de produtos
+            Glide.with(context)
+                    .load(p.getUrlImage())
+                    .into(holder.imageViewProduto);
             //holder.imageViewProduto.setBackground();
-            holder.textViewDescricao.setText("Descrição: "+p.getDescricao());
-            holder.textViewNomeProduto.setText("Produto: "+p.getProduto());
-            holder.textViewQuantidade.setText("Quantidade: "+String.valueOf(p.getQuantidade()));
-            holder.textViewFornecedor.setText("Fornecedor: "+p.getFornecedor());
-            holder.textViewCategoria.setText("Categoria: "+p.getCategoria());
-            holder.textViewValorVarejo.setText("Varejo: R$"+String.valueOf(p.getVarejo()));
-            holder.textViewValorVenda.setText("Venda: R$"+String.valueOf(p.getVenda()));
+            holder.textViewDescricao.setText("Descrição: " + p.getDescricao());
+            holder.textViewNomeProduto.setText("Produto: " + p.getProduto());
+            holder.textViewQuantidade.setText("Quantidade: " + String.valueOf(p.getQuantidade()));
+            holder.textViewFornecedor.setText("Fornecedor: " + p.getFornecedor());
+            holder.textViewCategoria.setText("Categoria: " + p.getCategoria());
+            holder.textViewValorVarejo.setText("Varejo: R$" + String.valueOf(p.getVarejo()));
+            holder.textViewValorVenda.setText("Venda: R$" + String.valueOf(p.getVenda()));
         }).exceptionally(e -> {
             // Trate exceções, se houver
             Log.d("Teste", e.getMessage());
@@ -85,6 +96,5 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
         }
 
     }
-
 
 }
