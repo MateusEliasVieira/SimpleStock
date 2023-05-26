@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,12 +27,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import br.com.ifgoiano.simplestock.R;
+import br.com.ifgoiano.simplestock.dao.FornecedorService;
+import br.com.ifgoiano.simplestock.dao.ProdutoService;
+import br.com.ifgoiano.simplestock.dao.impl.FornecedorServiceImpl;
 import br.com.ifgoiano.simplestock.dao.impl.ProdutoServiceImpl;
 import br.com.ifgoiano.simplestock.model.ProdutoModel;
 
 public class ProdutoFragment extends Fragment {
 
-    private ProdutoServiceImpl produtoDaoRepository;
+    private ProdutoService produtoService;
+    private FornecedorService fornecedorService;
     private EditText editTextNomeProduto;
     private Spinner spinnerCategoriaProduto;
     private Spinner spinnerFornecedor;
@@ -56,10 +61,11 @@ public class ProdutoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_produto, container, false);
-        produtoDaoRepository = new ProdutoServiceImpl(getContext());
+        produtoService = new ProdutoServiceImpl(getContext());
+        fornecedorService = new FornecedorServiceImpl(getContext());
         editTextNomeProduto = view.findViewById(R.id.editTextNomeProduto);
         spinnerCategoriaProduto = view.findViewById(R.id.spinnerCategoriaProduto);
-        spinnerFornecedor = view.findViewById(R.id.spinnerFornecedor);
+        spinnerFornecedor = view.findViewById(R.id.spinnerFornecedorProduto);
         editTextQuantidadeProduto = view.findViewById(R.id.editTextQuantidadeProduto);
         editTextPrecoVarejo = view.findViewById(R.id.editTextPrecoVarejo);
         editTextPrecoVenda = view.findViewById(R.id.editTextPrecoVenda);
@@ -71,6 +77,7 @@ public class ProdutoFragment extends Fragment {
         buttonCadastrarProduto = view.findViewById(R.id.buttonCadastrarProduto);
         addEventImageProduct();
         addEventButtonCad();
+        loadSpinnerFornecedor();
         return view;
     }
 
@@ -151,7 +158,7 @@ public class ProdutoFragment extends Fragment {
                     String urlImage = "";
                     ProdutoModel produtoModel = new ProdutoModel(nomeProduto, categoriaProduto, fornecedor, quantidadeProduto, precoVarejo, precoVenda, descricao, urlImage, imagem);
                     // Enviar para salvar
-                    produtoDaoRepository.save(produtoModel, new OnCompleteListener<Boolean>() {
+                    produtoService.save(produtoModel, new OnCompleteListener<Boolean>() {
                         @Override
                         public void onComplete(@NonNull Task<Boolean> task) {
                             if (task.isSuccessful()) {
@@ -168,6 +175,18 @@ public class ProdutoFragment extends Fragment {
                 Log.d("ERRO", e.getMessage());
                 e.printStackTrace();
             }
+        });
+    }
+
+    private void loadSpinnerFornecedor(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item);
+        fornecedorService.findAll().thenAccept(fornecedorModelList -> {
+            adapter.add("Fornecedor");
+            fornecedorModelList.forEach(fornecedorModel -> {
+                adapter.add(fornecedorModel.getFornecedor());
+            });
+            spinnerFornecedor.setAdapter(adapter);
+            adapter.notifyDataSetChanged(); // Notificar o adaptador após adicionar os itens
         });
     }
 

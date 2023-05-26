@@ -44,7 +44,7 @@
                 android:entries="@array/categorias_produto"/>
 
             <Spinner
-                android:id="@+id/spinnerFornecedor"
+                android:id="@+id/spinnerFornecedorProduto"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -53,8 +53,8 @@
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"
                 android:padding="15dp"
-                android:spinnerMode="dialog"
-                android:entries="@array/fornecedor_produto"/>
+                android:spinnerMode="dialog"/>
+<!--                android:entries="@array/fornecedor_produto"/>-->
         </LinearLayout>
 
         <EditText
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:text="@string/text_selecione_imagem"/>
 
         </LinearLayout>
