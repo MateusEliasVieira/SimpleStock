@@ -23,7 +23,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Varejo RS400.000,00"
+                android:text="@string/carregando"
                 android:textSize="20sp" />
 
             <TextView
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:text="Venda R$800.000,00"
+                android:text="@string/carregando"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -82,7 +82,6 @@
                     android:padding="15dp"
                     android:spinnerMode="dialog"
                     android:textSize="20sp" />
-
 
             </LinearLayout>
 

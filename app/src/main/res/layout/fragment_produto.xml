@@ -54,7 +54,6 @@
                 android:layout_marginTop="10dp"
                 android:padding="15dp"
                 android:spinnerMode="dialog"/>
-<!--                android:entries="@array/fornecedor_produto"/>-->
         </LinearLayout>
 
         <EditText

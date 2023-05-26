@@ -27,7 +27,9 @@
     <string name="hint_descricao">Descrição</string>
     <string name="text_selecione_imagem">Selecionar imagem!</string>
 
-
+    <string name="carregando">Carregando...</string>
+    <string name="simple_stock">Copyright Simple Stock</string>
+    <string name="versao">Versão 1.0</string>
     <string name="sair">Sair</string>
 
     <string-array name="nivel_acesso">

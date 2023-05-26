@@ -17,7 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
 import br.com.ifgoiano.simplestock.R;
@@ -58,8 +61,8 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
             holder.textViewQuantidade.setText("Quantidade: " + String.valueOf(p.getQuantidade()));
             holder.textViewFornecedor.setText("Fornecedor: " + p.getFornecedor());
             holder.textViewCategoria.setText("Categoria: " + p.getCategoria());
-            holder.textViewValorVarejo.setText("Varejo: R$" + String.valueOf(p.getVarejo()));
-            holder.textViewValorVenda.setText("Venda: R$" + String.valueOf(p.getVenda()));
+            holder.textViewValorVarejo.setText("Varejo: R$" + getValueFormat(p.getVarejo()));
+            holder.textViewValorVenda.setText("Venda: R$" + getValueFormat(p.getVenda()));
         }).exceptionally(e -> {
             // Trate exceções, se houver
             Log.d("Teste", e.getMessage());
@@ -71,6 +74,17 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
     @Override
     public int getItemCount() {
         return 10;
+    }
+
+    private String getValueFormat(double value) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setDecimalSeparator(',');
+        symbols.setGroupingSeparator('.');
+
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", symbols);
+
+        String formattedValue = decimalFormat.format(value);
+        return formattedValue;
     }
 
     public class ProdutoViewHolder extends RecyclerView.ViewHolder {
