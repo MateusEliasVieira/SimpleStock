@@ -3,23 +3,9 @@
     <item
         android:id="@+id/item_visualizar_produtos"
         android:enabled="true"
-        android:icon="@drawable/visualizar_produtos"
+        android:icon="@drawable/home"
         android:title="@string/menu_visualizar_estoque"/>
-    <item
-        android:id="@+id/item_cadastro_usuario"
-        android:enabled="true"
-        android:icon="@drawable/novo_usuario"
-        android:title="@string/menu_cadastro_usuario"/>
-    <item
-        android:id="@+id/item_cadastro_fornecedor"
-        android:enabled="true"
-        android:icon="@drawable/fornecedor"
-        android:title="@string/menu_cadastro_fornecedor"/>
-    <item
-        android:id="@+id/item_cadastro_produto"
-        android:enabled="true"
-        android:icon="@drawable/produto"
-        android:title="@string/menu_cadastro_produto"/>
+
     <item
         android:id="@+id/item_gerenciador_estoque"
         android:enabled="true"

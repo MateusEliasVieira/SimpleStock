@@ -1,88 +1,50 @@
 package br.com.ifgoiano.simplestock.views;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import br.com.ifgoiano.simplestock.R;
-import br.com.ifgoiano.simplestock.views.fragments.EstoqueFragment;
+import br.com.ifgoiano.simplestock.views.fragments.CategoriaFragment;
 import br.com.ifgoiano.simplestock.views.fragments.FornecedorFragment;
 import br.com.ifgoiano.simplestock.views.fragments.ProdutoFragment;
 import br.com.ifgoiano.simplestock.views.fragments.UsuarioFragment;
-import br.com.ifgoiano.simplestock.views.fragments.VisualizacaoProdutosFragment;
+import br.com.ifgoiano.simplestock.views.fragments.HomeFragment;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private FragmentContainerView fragmentContainerView;
-    private BottomNavigationView bottomNavigationView;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        fragmentContainerView = findViewById(R.id.fragmentContainerView);
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        loadNavigation();
-        loadFragmentInActivityHome(new VisualizacaoProdutosFragment());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.home_menu_basic_options, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.item_sair) {
-            logout();
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(HomeActivity.this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, toolbar, R.string.open_nav,
+                R.string.close_nav);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_view);
         }
-        return super.onOptionsItemSelected(item);
-    }
 
-    public void loadNavigation() {
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.item_cadastro_usuario) {
-                    loadFragmentInActivityHome(new UsuarioFragment());
-                } else if (item.getItemId() == R.id.item_cadastro_fornecedor) {
-                    loadFragmentInActivityHome(new FornecedorFragment());
-                } else if (item.getItemId() == R.id.item_cadastro_produto) {
-                    loadFragmentInActivityHome(new ProdutoFragment());
-                } else if (item.getItemId() == R.id.item_gerenciador_estoque) {
-                    loadFragmentInActivityHome(new EstoqueFragment());
-                } else if (item.getItemId() == R.id.item_visualizar_produtos) {
-                    loadFragmentInActivityHome(new VisualizacaoProdutosFragment());
-                }
-                return false;
-            }
-
-        });
-    }
-
-    private void loadFragmentInActivityHome(Fragment obj) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(fragmentContainerView.getId(), obj);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
 
     private void logout() {
@@ -92,6 +54,37 @@ public class HomeActivity extends AppCompatActivity {
         finish(); // encerramos essa atividade
     }
 
-
-
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_home:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                break;
+            case R.id.item_cadastro_usuario:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UsuarioFragment()).commit();
+                break;
+            case R.id.item_cadastro_fornecedor:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FornecedorFragment()).commit();
+                break;
+            case R.id.item_cadastro_categoria:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CategoriaFragment()).commit();
+                break;
+            case R.id.item_cadastro_produto:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProdutoFragment()).commit();
+                break;
+            case R.id.item_sair:
+                logout();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+   @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
