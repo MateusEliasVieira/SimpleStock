@@ -3,7 +3,7 @@
 
     <string name="title_button_login">Entrar</string>
     <string name="buttonCadastrar">Salvar</string>
-    <string name="button_pesquisar">Pesquisar</string>
+    <string name="button_pesquisar">Buscar</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
 
@@ -14,7 +14,6 @@
     <string name="menu_cadastro_fornecedor">Fornecedor</string>
     <string name="menu_cadastro_produto">Produto</string>
     <string name="menu_cadastro_categoria">Categoria</string>
-    <string name="menu_visualizar_estoque">Home</string>
     <string name="menu_gerenciador_estoque">Estoque</string>
 
     <string name="hint_email">Email</string>

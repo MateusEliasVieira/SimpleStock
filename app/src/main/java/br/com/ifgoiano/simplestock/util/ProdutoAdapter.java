@@ -56,13 +56,13 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
                     .load(p.getUrlImage())
                     .into(holder.imageViewProduto);
             //holder.imageViewProduto.setBackground();
-            holder.textViewDescricao.setText("Descrição: " + p.getDescricao());
-            holder.textViewNomeProduto.setText("Produto: " + p.getProduto());
-            holder.textViewQuantidade.setText("Quantidade: " + String.valueOf(p.getQuantidade()));
-            holder.textViewFornecedor.setText("Fornecedor: " + p.getFornecedor());
-            holder.textViewCategoria.setText("Categoria: " + p.getCategoria());
-            holder.textViewValorVarejo.setText("Varejo: R$" + getValueFormat(p.getVarejo()));
-            holder.textViewValorVenda.setText("Venda: R$" + getValueFormat(p.getVenda()));
+           // holder.textViewDescricao.setText("Descrição: " + p.getDescricao());
+            holder.textViewNomeProduto.setText(p.getProduto());
+            holder.textViewQuantidade.setText(String.valueOf(p.getQuantidade()) +" em estoque");
+//            holder.textViewFornecedor.setText("Fornecedor: " + p.getFornecedor());
+//            holder.textViewCategoria.setText("Categoria: " + p.getCategoria());
+//            holder.textViewValorVarejo.setText("Varejo: R$" + getValueFormat(p.getVarejo()));
+//            holder.textViewValorVenda.setText("Venda: R$" + getValueFormat(p.getVenda()));
         }).exceptionally(e -> {
             // Trate exceções, se houver
             Log.d("Teste", e.getMessage());
@@ -102,11 +102,11 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
             imageViewProduto = itemView.findViewById(R.id.imageViewFotoProdutoRecyclerViewAdapter);
             textViewNomeProduto = itemView.findViewById(R.id.editTextNomeProdutoRecyclerViewAdapter);
             textViewQuantidade = itemView.findViewById(R.id.editTextQuantidadeProdutoRecyclerViewAdapter);
-            textViewValorVarejo = itemView.findViewById(R.id.editTextValorVarejoProdutoRecyclerViewAdapter);
-            textViewValorVenda = itemView.findViewById(R.id.editTextValorVendaProdutoRecyclerViewAdapter);
-            textViewDescricao = itemView.findViewById(R.id.editTextDescricaoProdutoRecyclerViewAdapter);
-            textViewFornecedor = itemView.findViewById(R.id.editTextFornecedorProdutoRecyclerViewAdapter);
-            textViewCategoria = itemView.findViewById(R.id.editTextCategoriaProdutoRecyclerViewAdapter);
+//            textViewValorVarejo = itemView.findViewById(R.id.editTextValorVarejoProdutoRecyclerViewAdapter);
+//            textViewValorVenda = itemView.findViewById(R.id.editTextValorVendaProdutoRecyclerViewAdapter);
+//            textViewDescricao = itemView.findViewById(R.id.editTextDescricaoProdutoRecyclerViewAdapter);
+//            textViewFornecedor = itemView.findViewById(R.id.editTextFornecedorProdutoRecyclerViewAdapter);
+//            textViewCategoria = itemView.findViewById(R.id.editTextCategoriaProdutoRecyclerViewAdapter);
         }
 
     }

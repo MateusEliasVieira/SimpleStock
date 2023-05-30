@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import br.com.ifgoiano.simplestock.R;
 import br.com.ifgoiano.simplestock.views.fragments.CategoriaFragment;
+import br.com.ifgoiano.simplestock.views.fragments.EstoqueFragment;
 import br.com.ifgoiano.simplestock.views.fragments.FornecedorFragment;
 import br.com.ifgoiano.simplestock.views.fragments.ProdutoFragment;
 import br.com.ifgoiano.simplestock.views.fragments.UsuarioFragment;
@@ -71,6 +72,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.item_cadastro_produto:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProdutoFragment()).commit();
+                break;
+            case R.id.item_estoque:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EstoqueFragment()).commit();
                 break;
             case R.id.item_sair:
                 logout();

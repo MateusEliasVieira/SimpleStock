@@ -30,6 +30,11 @@
             android:icon="@drawable/produto"
             android:title="@string/menu_cadastro_produto"/>
         <item
+            android:id="@+id/item_estoque"
+            android:enabled="true"
+            android:icon="@drawable/estoque"
+            android:title="@string/menu_gerenciador_estoque"/>
+        <item
             android:title="">
             <menu>
                 <item

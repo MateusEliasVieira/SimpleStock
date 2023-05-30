@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import br.com.ifgoiano.simplestock.R;
@@ -32,6 +33,7 @@ public class EstoqueFragment extends Fragment {
     private Spinner spinnerFornecedorEstoque;
     private Spinner spinnerCategoriaProdutoEstoque;
     private Button buttonPesquisarProdutoEstoque;
+    private ProgressBar progressBar;
 
 
     public EstoqueFragment() {
@@ -43,11 +45,12 @@ public class EstoqueFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_estoque, container, false);
+        //progressBar = view.findViewById(R.id.progressBar);
+       // progressBar.setVisibility(View.VISIBLE);
         fornecedorService = new FornecedorServiceImpl(getContext());
-
         editTextPesquisaEstoque = view.findViewById(R.id.editTextPesquisaEstoque);
-        spinnerFornecedorEstoque = view.findViewById(R.id.spinnerFornecedorEstoque);
-        spinnerCategoriaProdutoEstoque = view.findViewById(R.id.spinnerCategoriaEstoque);
+        //spinnerFornecedorEstoque = view.findViewById(R.id.spinnerFornecedorEstoque);
+        //spinnerCategoriaProdutoEstoque = view.findViewById(R.id.spinnerCategoriaEstoque);
         buttonPesquisarProdutoEstoque = view.findViewById(R.id.buttonPesquisarProdutoEstoque);
         produtoAdapter = new ProdutoAdapter(getContext());
         recyclerView = view.findViewById(R.id.recyclerViewProdutosEstoque);
@@ -57,6 +60,7 @@ public class EstoqueFragment extends Fragment {
         recyclerView.setAdapter(produtoAdapter);
         loadSpinnerFornecedor();
         addEventSearchButton();
+
         return view;
     }
 
@@ -78,6 +82,7 @@ public class EstoqueFragment extends Fragment {
             });
             spinnerFornecedorEstoque.setAdapter(adapter);
             adapter.notifyDataSetChanged(); // Notificar o adaptador após adicionar os itens
+           // progressBar.setVisibility(View.GONE);
         });
     }
 

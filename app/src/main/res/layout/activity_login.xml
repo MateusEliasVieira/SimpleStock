@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_app"
+    android:background="@drawable/back_login"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     tools:context=".views.LoginActivity">
@@ -17,7 +17,7 @@
         android:elevation="@dimen/cardview_default_elevation"
         android:padding="15dp"
         android:paddingTop="0dp"
-        android:background="@color/white"
+        android:background="@drawable/form_login"
         android:orientation="vertical">
 
         <ImageView
@@ -25,6 +25,7 @@
             android:layout_height="180dp"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
+            android:background="@drawable/banner_form_login"
             android:src="@mipmap/logo_foreground"/>
 
         <EditText
@@ -88,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="@string/simple_stock"
+                android:textColor="@color/black"
                 android:textSize="12sp"/>
 
             <TextView
@@ -96,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:text="@string/versao"
+                android:textColor="@color/black"
                 android:textSize="14sp"/>
 
         </LinearLayout>
