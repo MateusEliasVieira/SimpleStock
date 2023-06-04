@@ -113,9 +113,49 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public void findByName() {
+    public CompletableFuture<List<ProdutoModel>> findByName(String name) {
+        CompletableFuture<List<ProdutoModel>> future = new CompletableFuture<>();
 
+        collectionReference.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            List<ProdutoModel> listProdutoModel = new ArrayList<>();
+            List<DocumentSnapshot> listDocuments = queryDocumentSnapshots.getDocuments();
+            int length = listDocuments.size();
+            for (int i = 0; i < length; i++) {
+                DocumentSnapshot ds = listDocuments.get(i);
+
+                // se conter o name
+                if (ds.getString("produto").toLowerCase().contains(name.toLowerCase())) {
+
+                    String produto = ds.getString("produto");
+                    int quantidade = ds.getLong("quantidade").intValue();
+                    String fornecedor = ds.getString("fornecedor");
+                    String categoria = ds.getString("categoria");
+                    double varejo = ds.getDouble("varejo");
+                    double venda = ds.getDouble("venda");
+                    String descricao = ds.getString("descricao");
+                    String urlimage = ds.getString("urlimage");
+
+                    ProdutoModel produtoModel = new ProdutoModel();
+                    produtoModel.setProduto(produto);
+                    produtoModel.setQuantidade(quantidade);
+                    produtoModel.setFornecedor(fornecedor);
+                    produtoModel.setCategoria(categoria);
+                    produtoModel.setVarejo(varejo);
+                    produtoModel.setVenda(venda);
+                    produtoModel.setDescricao(descricao);
+                    produtoModel.setUrlImage(urlimage);
+
+                    listProdutoModel.add(produtoModel);
+                }
+
+            }
+
+            future.complete(listProdutoModel);
+        }).addOnFailureListener(e -> future.completeExceptionally(e));
+
+        return future;
     }
+
 
     @Override
     public void delete(String name_document) {

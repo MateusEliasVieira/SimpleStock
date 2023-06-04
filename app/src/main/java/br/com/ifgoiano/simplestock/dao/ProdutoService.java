@@ -15,7 +15,7 @@ public interface ProdutoService {
 
     public CompletableFuture<List<ProdutoModel>> findAll();
 
-    public void findByName();
+    public CompletableFuture<List<ProdutoModel>> findByName(String name);
 
     public void delete(String name_document);
 

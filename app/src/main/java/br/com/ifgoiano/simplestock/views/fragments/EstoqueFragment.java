@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +21,21 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.ifgoiano.simplestock.R;
 import br.com.ifgoiano.simplestock.dao.FornecedorService;
+import br.com.ifgoiano.simplestock.dao.ProdutoService;
 import br.com.ifgoiano.simplestock.dao.impl.FornecedorServiceImpl;
+import br.com.ifgoiano.simplestock.dao.impl.ProdutoServiceImpl;
+import br.com.ifgoiano.simplestock.model.ProdutoModel;
 import br.com.ifgoiano.simplestock.util.ProdutoAdapter;
 
 public class EstoqueFragment extends Fragment {
 
     private FornecedorService fornecedorService;
+    private ProdutoService produtoService;
     private RecyclerView recyclerView;
     private ProdutoAdapter produtoAdapter;
 
@@ -45,12 +55,9 @@ public class EstoqueFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_estoque, container, false);
-        //progressBar = view.findViewById(R.id.progressBar);
-       // progressBar.setVisibility(View.VISIBLE);
         fornecedorService = new FornecedorServiceImpl(getContext());
+        produtoService = new ProdutoServiceImpl(getContext());
         editTextPesquisaEstoque = view.findViewById(R.id.editTextPesquisaEstoque);
-        //spinnerFornecedorEstoque = view.findViewById(R.id.spinnerFornecedorEstoque);
-        //spinnerCategoriaProdutoEstoque = view.findViewById(R.id.spinnerCategoriaEstoque);
         buttonPesquisarProdutoEstoque = view.findViewById(R.id.buttonPesquisarProdutoEstoque);
         produtoAdapter = new ProdutoAdapter(getContext());
         recyclerView = view.findViewById(R.id.recyclerViewProdutosEstoque);
@@ -59,15 +66,29 @@ public class EstoqueFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(produtoAdapter);
         loadSpinnerFornecedor();
-        addEventSearchButton();
-
+        addEventSearchEditText();
         return view;
     }
 
-    private void addEventSearchButton() {
-        buttonPesquisarProdutoEstoque.setOnClickListener(new View.OnClickListener() {
+
+    private void addEventSearchEditText() {
+        editTextPesquisaEstoque.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // ação antes de mudar o texto
+                //Log.d("DIGITO ANTES: ",s+" - start: "+start+" - count: "+count+" - after: "+after);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // ação durante a mudança
+               // Log.d("DIGITO DURANTE: ",s+" - start: "+start+" - count: "+count);
+                buscarProdutos(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //Log.d("DIGITO DEPOIS: ",s.toString());
 
             }
         });
@@ -82,9 +103,22 @@ public class EstoqueFragment extends Fragment {
             });
             spinnerFornecedorEstoque.setAdapter(adapter);
             adapter.notifyDataSetChanged(); // Notificar o adaptador após adicionar os itens
-           // progressBar.setVisibility(View.GONE);
         });
     }
 
+    private void buscarProdutos(String name) {
+        List<ProdutoModel> listProdutoModel = new ArrayList<>();
+        produtoService.findByName(name).thenAccept(list -> {
+            produtoAdapter = new ProdutoAdapter(getContext(),list);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(produtoAdapter);
+        }).exceptionally(e -> {
+            // Trate exceções, se houver
+            Log.d("Teste", e.getMessage());
+            return null;
+        });
+    }
 
 }

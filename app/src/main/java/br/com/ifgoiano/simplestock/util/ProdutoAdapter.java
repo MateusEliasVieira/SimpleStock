@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
@@ -31,12 +32,33 @@ import br.com.ifgoiano.simplestock.model.ProdutoModel;
 public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder> {
 
     private ProdutoService produtoService;
+    private List<ProdutoModel> produtos; // Lista para armazenar os produtos
     private Context context;
 
     public ProdutoAdapter(Context context) {
         this.context = context;
+        produtos = new ArrayList<>(); // Inicializa a lista vazia
         produtoService = new ProdutoServiceImpl(this.context);
+        buscarProdutos(); // Chama o método para buscar os produtos
+    }
 
+    public ProdutoAdapter(Context context, List<ProdutoModel> produtos){
+        this.context = context;
+        this.produtos = produtos;
+        produtoService = new ProdutoServiceImpl(this.context);
+        notifyDataSetChanged();
+    }
+
+    // Método para buscar os produtos do Firebase
+    private void buscarProdutos() {
+        produtoService.findAll().thenAccept(listProdutoModel -> {
+            produtos.addAll(listProdutoModel); // Adiciona os produtos à lista
+            notifyDataSetChanged(); // Notifica o adaptador sobre a mudança nos dados
+        }).exceptionally(e -> {
+            // Trate exceções, se houver
+            Log.d("Teste", e.getMessage());
+            return null;
+        });
     }
 
     @NonNull
@@ -48,32 +70,17 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
 
     @Override
     public void onBindViewHolder(@NonNull ProdutoViewHolder holder, int position) {
-        produtoService.findAll().thenAccept(listProdutoModel -> {
-
-            ProdutoModel p = listProdutoModel.get(position);
-            // Faça algo com a lista de produtos
-            Glide.with(context)
-                    .load(p.getUrlImage())
-                    .into(holder.imageViewProduto);
-            //holder.imageViewProduto.setBackground();
-           // holder.textViewDescricao.setText("Descrição: " + p.getDescricao());
-            holder.textViewNomeProduto.setText(p.getProduto());
-            holder.textViewQuantidade.setText(String.valueOf(p.getQuantidade()) +" em estoque");
-//            holder.textViewFornecedor.setText("Fornecedor: " + p.getFornecedor());
-//            holder.textViewCategoria.setText("Categoria: " + p.getCategoria());
-//            holder.textViewValorVarejo.setText("Varejo: R$" + getValueFormat(p.getVarejo()));
-//            holder.textViewValorVenda.setText("Venda: R$" + getValueFormat(p.getVenda()));
-        }).exceptionally(e -> {
-            // Trate exceções, se houver
-            Log.d("Teste", e.getMessage());
-            return null;
-        });
-
+        ProdutoModel p = produtos.get(position); // Obtém o produto da lista
+        Glide.with(context)
+                .load(p.getUrlImage())
+                .into(holder.imageViewProduto);
+        holder.textViewNomeProduto.setText(p.getProduto());
+        holder.textViewQuantidade.setText(String.valueOf(p.getQuantidade()) + " em estoque");
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return produtos.size();
     }
 
     private String getValueFormat(double value) {
@@ -91,22 +98,12 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
         ImageView imageViewProduto;
         TextView textViewNomeProduto;
         TextView textViewQuantidade;
-        TextView textViewValorVarejo;
-        TextView textViewValorVenda;
-        TextView textViewDescricao;
-        TextView textViewFornecedor;
-        TextView textViewCategoria;
 
         public ProdutoViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewProduto = itemView.findViewById(R.id.imageViewFotoProdutoRecyclerViewAdapter);
             textViewNomeProduto = itemView.findViewById(R.id.editTextNomeProdutoRecyclerViewAdapter);
             textViewQuantidade = itemView.findViewById(R.id.editTextQuantidadeProdutoRecyclerViewAdapter);
-//            textViewValorVarejo = itemView.findViewById(R.id.editTextValorVarejoProdutoRecyclerViewAdapter);
-//            textViewValorVenda = itemView.findViewById(R.id.editTextValorVendaProdutoRecyclerViewAdapter);
-//            textViewDescricao = itemView.findViewById(R.id.editTextDescricaoProdutoRecyclerViewAdapter);
-//            textViewFornecedor = itemView.findViewById(R.id.editTextFornecedorProdutoRecyclerViewAdapter);
-//            textViewCategoria = itemView.findViewById(R.id.editTextCategoriaProdutoRecyclerViewAdapter);
         }
 
     }

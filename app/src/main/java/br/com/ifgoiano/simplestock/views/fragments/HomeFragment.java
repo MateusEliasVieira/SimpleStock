@@ -16,11 +16,14 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import br.com.ifgoiano.simplestock.R;
+import br.com.ifgoiano.simplestock.dao.CategoriaService;
 import br.com.ifgoiano.simplestock.dao.ProdutoService;
+import br.com.ifgoiano.simplestock.dao.impl.CategoriaServiceImpl;
 import br.com.ifgoiano.simplestock.dao.impl.ProdutoServiceImpl;
 
 public class HomeFragment extends Fragment {
     private ProdutoService produtoService;
+    private CategoriaService categoriaService;
     private TextView textViewVarejo;
     private TextView textViewVenda;
     private TextView textViewQuantidadeCategoria;
@@ -36,6 +39,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_visualizacao_produtos, container, false);
         produtoService = new ProdutoServiceImpl(getContext());
+        categoriaService = new CategoriaServiceImpl(getContext());
         textViewVarejo = view.findViewById(R.id.textViewValorEstoquePrecoVarejo);
         textViewVenda = view.findViewById(R.id.textViewValorEstoquePrecoVenda);
         textViewQuantidadeCategoria = view.findViewById(R.id.textViewQuantidadeCategoria);
@@ -52,9 +56,13 @@ public class HomeFragment extends Fragment {
                 varejo = varejo + produtoModel.getVarejo();
                 venda = venda + produtoModel.getVenda();
             });
+
             textViewVarejo.setText("R$" + getValueFormat(varejo));
             textViewVenda.setText("R$" + getValueFormat(venda));
             textViewQuantidadeProduto.setText(String.valueOf(produtoModelList.size()));
+        });
+        categoriaService.findAll().thenAccept(categoriaModelList -> {
+            textViewQuantidadeCategoria.setText(String.valueOf(categoriaModelList.size()));
         });
     }
 
