@@ -27,8 +27,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import br.com.ifgoiano.simplestock.R;
+import br.com.ifgoiano.simplestock.dao.CategoriaService;
 import br.com.ifgoiano.simplestock.dao.FornecedorService;
 import br.com.ifgoiano.simplestock.dao.ProdutoService;
+import br.com.ifgoiano.simplestock.dao.impl.CategoriaServiceImpl;
 import br.com.ifgoiano.simplestock.dao.impl.FornecedorServiceImpl;
 import br.com.ifgoiano.simplestock.dao.impl.ProdutoServiceImpl;
 import br.com.ifgoiano.simplestock.model.ProdutoModel;
@@ -37,6 +39,7 @@ public class ProdutoFragment extends Fragment {
 
     private ProdutoService produtoService;
     private FornecedorService fornecedorService;
+    private CategoriaService categoriaService;
     private EditText editTextNomeProduto;
     private Spinner spinnerCategoriaProduto;
     private Spinner spinnerFornecedor;
@@ -63,6 +66,7 @@ public class ProdutoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_produto, container, false);
         produtoService = new ProdutoServiceImpl(getContext());
         fornecedorService = new FornecedorServiceImpl(getContext());
+        categoriaService = new CategoriaServiceImpl(getContext());
         editTextNomeProduto = view.findViewById(R.id.editTextNomeProduto);
         spinnerCategoriaProduto = view.findViewById(R.id.spinnerCategoriaProduto);
         spinnerFornecedor = view.findViewById(R.id.spinnerFornecedorProduto);
@@ -78,6 +82,7 @@ public class ProdutoFragment extends Fragment {
         addEventImageProduct();
         addEventButtonCad();
         loadSpinnerFornecedor();
+        loadSpinnerCategoria();
         return view;
     }
 
@@ -175,6 +180,18 @@ public class ProdutoFragment extends Fragment {
                 Log.d("ERRO", e.getMessage());
                 e.printStackTrace();
             }
+        });
+    }
+
+    private void loadSpinnerCategoria(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item);
+        categoriaService.findAll().thenAccept(categoriaModelList -> {
+            adapter.add("Categoria");
+            categoriaModelList.forEach(categoriaModel -> {
+                adapter.add(categoriaModel.getCategoria());
+            });
+            spinnerCategoriaProduto.setAdapter(adapter);
+            adapter.notifyDataSetChanged(); // Notificar o adaptador após adicionar os itens
         });
     }
 

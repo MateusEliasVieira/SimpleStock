@@ -39,8 +39,7 @@
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"
                 android:padding="15dp"
-                android:spinnerMode="dialog"
-                android:entries="@array/categorias_produto"/>
+                android:spinnerMode="dialog"/>
 
             <Spinner
                 android:id="@+id/spinnerFornecedorProduto"
