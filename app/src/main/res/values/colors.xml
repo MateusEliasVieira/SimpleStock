@@ -9,9 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_blue">#2996C8</color>
     <color name="dark_blue">#184960</color>
-    <color name="card">#8692f7</color>
+    <color name="card">#f5f0f0</color>
     <color name="form">#EEEEF0</color>
     <color name="border_color">#DFDFE1</color>
     <color name="background_app">#EDEBEB</color>
     <color name="lavender">#8692f7</color>
+    <color name="red">#a6161f</color>
+
 </resources>

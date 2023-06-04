@@ -2,10 +2,13 @@
     <string name="app_name">Simple Stock</string>
 
     <string name="title_button_login">Entrar</string>
+    <string name="title_form_login">Sign Up</string>
     <string name="buttonCadastrar">Salvar</string>
     <string name="button_pesquisar">Buscar</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
+    <string name="qtd_produtos">Produtos</string>
+    <string name="qtd_categorias">Categorias</string>
 
     <string name="novo_usuario">Novo Usuário</string>
 
@@ -31,8 +34,7 @@
     <string name="text_selecione_imagem">Selecionar imagem!</string>
 
     <string name="carregando">Carregando...</string>
-    <string name="simple_stock">Copyright Simple Stock</string>
-    <string name="versao">Versão 1.0</string>
+    <string name="simple_stock">Copyright Simple Stock - Versão 1.0</string>
     <string name="sair">Sair</string>
 
     <string-array name="nivel_acesso">

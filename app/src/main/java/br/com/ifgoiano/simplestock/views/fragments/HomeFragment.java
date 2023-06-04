@@ -52,9 +52,9 @@ public class HomeFragment extends Fragment {
                 varejo = varejo + produtoModel.getVarejo();
                 venda = venda + produtoModel.getVenda();
             });
-            textViewVarejo.setText("Varejo: R$" + getValueFormat(varejo));
-            textViewVenda.setText("Venda: R$" + getValueFormat(venda));
-            textViewQuantidadeProduto.setText("Produtos: "+produtoModelList.size());
+            textViewVarejo.setText("R$" + getValueFormat(varejo));
+            textViewVenda.setText("R$" + getValueFormat(venda));
+            textViewQuantidadeProduto.setText(String.valueOf(produtoModelList.size()));
         });
     }
 

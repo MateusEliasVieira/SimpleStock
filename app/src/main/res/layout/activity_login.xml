@@ -1,110 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/back_login"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
+    android:layout_height="wrap_content"
     tools:context=".views.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:elevation="@dimen/cardview_default_elevation"
-        android:padding="15dp"
-        android:paddingTop="0dp"
-        android:background="@drawable/form_login"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center"
-            android:background="@drawable/banner_form_login"
-            android:src="@mipmap/logo_foreground"/>
-
-        <EditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/imageViewLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:hint="@string/hint_email"
-            android:textSize="20sp"
-            android:padding="15dp"
-            android:textAllCaps="false"
-            android:textColor="@color/dark_blue"
-            android:background="@drawable/campos_login"
-            android:drawableLeft="@drawable/email"
-            android:inputType="textEmailAddress"/>
-
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:hint="@string/hint_password"
-            android:textSize="20sp"
-            android:padding="15dp"
-            android:textAllCaps="false"
-            android:textColor="@color/dark_blue"
-            android:background="@drawable/campos_login"
-            android:drawableLeft="@drawable/senha"
-            android:inputType="textPassword"/>
-
-        <Button
-            android:id="@+id/buttonLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/title_button_login"
-            android:textAllCaps="false"
-            android:textSize="20sp"
-            android:background="@drawable/botao_arredondado"
-            android:padding="8dp"/>
+            android:layout_marginTop="-15dp"
+            app:srcCompat="@drawable/top_login" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="15dp">
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/textViewTitulo"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:gravity="center"
+                android:text="@string/title_form_login"
+                android:textAllCaps="false"
+                android:textColor="@color/red"
+                android:textSize="40dp" />
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/campos_login"
+                android:drawableLeft="@drawable/email"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                android:padding="15dp"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/campos_login"
+                android:drawableLeft="@drawable/senha"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/buttonLogin"
+                android:layout_width="190dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/botao_arredondado"
+                android:padding="8dp"
+                android:text="@string/title_button_login"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewInfo"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
                 android:text="@string/simple_stock"
                 android:textColor="@color/black"
-                android:textSize="12sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="@string/versao"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 
-
     </LinearLayout>
-
-
 </androidx.core.widget.NestedScrollView>
+
+

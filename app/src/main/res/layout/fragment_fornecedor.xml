@@ -9,7 +9,6 @@
         android:id="@+id/linearLayoutFornecedor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:background="@color/form"
         android:elevation="20dp"
         android:orientation="vertical"
