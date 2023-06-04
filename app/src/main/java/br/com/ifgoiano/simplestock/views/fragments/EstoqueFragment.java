@@ -40,10 +40,6 @@ public class EstoqueFragment extends Fragment {
     private ProdutoAdapter produtoAdapter;
 
     private EditText editTextPesquisaEstoque;
-    private Spinner spinnerFornecedorEstoque;
-    private Spinner spinnerCategoriaProdutoEstoque;
-    private Button buttonPesquisarProdutoEstoque;
-    private ProgressBar progressBar;
 
 
     public EstoqueFragment() {
@@ -58,7 +54,6 @@ public class EstoqueFragment extends Fragment {
         fornecedorService = new FornecedorServiceImpl(getContext());
         produtoService = new ProdutoServiceImpl(getContext());
         editTextPesquisaEstoque = view.findViewById(R.id.editTextPesquisaEstoque);
-        buttonPesquisarProdutoEstoque = view.findViewById(R.id.buttonPesquisarProdutoEstoque);
         produtoAdapter = new ProdutoAdapter(getContext());
         recyclerView = view.findViewById(R.id.recyclerViewProdutosEstoque);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -82,7 +77,7 @@ public class EstoqueFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // ação durante a mudança
-               // Log.d("DIGITO DURANTE: ",s+" - start: "+start+" - count: "+count);
+                // Log.d("DIGITO DURANTE: ",s+" - start: "+start+" - count: "+count);
                 buscarProdutos(s.toString());
             }
 
@@ -101,7 +96,7 @@ public class EstoqueFragment extends Fragment {
             fornecedorModelList.forEach(fornecedorModel -> {
                 adapter.add(fornecedorModel.getFornecedor());
             });
-            spinnerFornecedorEstoque.setAdapter(adapter);
+            //spinnerFornecedorEstoque.setAdapter(adapter);
             adapter.notifyDataSetChanged(); // Notificar o adaptador após adicionar os itens
         });
     }
@@ -109,7 +104,7 @@ public class EstoqueFragment extends Fragment {
     private void buscarProdutos(String name) {
         List<ProdutoModel> listProdutoModel = new ArrayList<>();
         produtoService.findByName(name).thenAccept(list -> {
-            produtoAdapter = new ProdutoAdapter(getContext(),list);
+            produtoAdapter = new ProdutoAdapter(getContext(), list);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setHasFixedSize(true);

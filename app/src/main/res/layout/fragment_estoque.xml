@@ -14,31 +14,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:padding="10dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/editTextPesquisaEstoque"
-                android:layout_width="0dp"
-                android:layout_height="58dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="3"
-                android:layout_marginLeft="5dp"
+                android:hint="@string/button_pesquisar"
                 android:background="@drawable/borda_edittext"
                 android:drawableLeft="@drawable/lupa"
                 android:padding="15dp"
                 android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/buttonPesquisarProdutoEstoque"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_gravity="top"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:text="@string/button_pesquisar"
-                android:textAllCaps="false"
-                android:textSize="14sp" />
 
         </LinearLayout>
 
