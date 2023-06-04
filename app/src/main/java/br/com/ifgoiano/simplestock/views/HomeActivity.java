@@ -8,6 +8,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.widget.Toolbar;
@@ -26,11 +28,17 @@ import br.com.ifgoiano.simplestock.views.fragments.HomeFragment;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawerLayout;
+    private String acessibilidade;
+    private final String ADMINISTRADOR = "ADMINISTRADOR";
+    private final String USUARIO = "USUÁRIO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Intent intent = getIntent();
+        acessibilidade = intent.getStringExtra("acessibilidade");
+        verifyUser(acessibilidade);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -46,6 +54,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.nav_view);
         }
 
+    }
+
+    private void verifyUser(String acessibilidade){
+        if(acessibilidade.equals(USUARIO)){
+            NavigationView navigationView = findViewById(R.id.nav_view);
+            Menu drawerMenu = navigationView.getMenu();
+            MenuItem menuItemcadastroUsuario = drawerMenu.findItem(R.id.item_cadastro_usuario);
+            menuItemcadastroUsuario.setVisible(false);
+            MenuItem menuItemcadastroFornecedor = drawerMenu.findItem(R.id.item_cadastro_fornecedor);
+            menuItemcadastroFornecedor.setVisible(false);
+            MenuItem menuItemcadastroCategoria = drawerMenu.findItem(R.id.item_cadastro_categoria);
+            menuItemcadastroCategoria.setVisible(false);
+
+        }
     }
 
     private void logout() {
