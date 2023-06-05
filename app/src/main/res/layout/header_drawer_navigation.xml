@@ -9,20 +9,5 @@
     android:background="@drawable/top_signup"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="Simple Stock"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gerenciamento de estoques"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:layout_marginBottom="16dp"/>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package br.com.ifgoiano.simplestock.dao.impl;
 
+import android.app.AlertDialog;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -9,8 +10,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -25,9 +31,11 @@ public class FornecedorServiceImpl implements FornecedorService {
 
     private final String COLLECTION = "fornecedor";
     private FirebaseFirestore firebaseFirestore;
+    private Context context;
 
     public FornecedorServiceImpl(Context context) {
         firebaseFirestore = FirebaseFirestore.getInstance();
+        this.context = context;
     }
 
     @Override
@@ -89,4 +97,5 @@ public class FornecedorServiceImpl implements FornecedorService {
     public void delete() {
 
     }
+
 }

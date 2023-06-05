@@ -19,6 +19,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -43,11 +46,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        isLogged();
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
         addEventButtonLogin();
-        isLogged();
     }
 
     private void addEventButtonLogin() {
@@ -57,9 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 if (email.isEmpty() || password.isEmpty()) {
-                    Snackbar snackbar = Snackbar.make(v, "Informe o email e senha!", Snackbar.LENGTH_LONG);
-                    snackbar.setBackgroundTint(Color.RED);
-                    snackbar.show();
+                    snackbar(v, "Informe o email e senha!");
                 } else {
 
                     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -76,7 +77,13 @@ public class LoginActivity extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.d("teste", e.getMessage());
+                                    if (e instanceof FirebaseAuthEmailException) {
+                                        snackbar(v, "Email inválido!");
+                                    } else if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                        snackbar(v, "Login inválido!");
+                                    } else if (e instanceof FirebaseAuthException) {
+                                        snackbar(v, "Não foi possível realizar o login!");
+                                    }
                                 }
                             });
 
@@ -104,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
                                 // logar como adm
                                 login(ADMINISTRADOR);
                             }
-                            Log.d("teste", acessibilidade);
                         }
                     }
                 })
@@ -132,12 +138,10 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void alert(String title, String message) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(title);
-        alert.setMessage(message);
-        alert.setPositiveButton("OK", null);
-        alert.show();
+    private void snackbar(View v, String message) {
+        Snackbar snackbar = Snackbar.make(v, message, Snackbar.LENGTH_LONG);
+        snackbar.setBackgroundTint(Color.RED);
+        snackbar.show();
     }
 
 

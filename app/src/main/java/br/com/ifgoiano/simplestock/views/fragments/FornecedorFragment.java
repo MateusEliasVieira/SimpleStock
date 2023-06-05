@@ -20,6 +20,7 @@ import br.com.ifgoiano.simplestock.R;
 import br.com.ifgoiano.simplestock.dao.FornecedorService;
 import br.com.ifgoiano.simplestock.dao.impl.FornecedorServiceImpl;
 import br.com.ifgoiano.simplestock.model.FornecedorModel;
+import br.com.ifgoiano.simplestock.util.EmailValidator;
 
 public class FornecedorFragment extends Fragment {
 
@@ -58,7 +59,10 @@ public class FornecedorFragment extends Fragment {
                 String telefone = editTextTelefoneFornecedor.getText().toString();
                 if(nome.isEmpty() || cnpj.isEmpty() || email.isEmpty() || telefone.isEmpty()){
                     alert("Aviso","Por favor preencha todos os campos!","OK");
-                }else{
+                }else if(!EmailValidator.isValidEmail(email)){
+                    alert("Aviso","Email inválido!","OK");
+                }
+                else{
                     // preparar para salvar
                     FornecedorModel fornecedorModel = new FornecedorModel();
                     fornecedorModel.setFornecedor(nome);
@@ -68,12 +72,12 @@ public class FornecedorFragment extends Fragment {
                     // mandar salvar
                     fornecedorService.save(fornecedorModel, new OnCompleteListener<Boolean>() {
                         @Override
-                        public void onComplete(@NonNull Task task) {
-                            if(task.isSuccessful()){
+                        public void onComplete(@NonNull Task<Boolean> task) {
+                            if(task.getResult()){
                                 clean();
                                 alert("Sucesso","Novo fornecedor cadastrado com sucesso!","OK");
                             }else{
-                                alert("Aviso","Ops, não foi possível concluir o cadastro do fornecedor!","Vou tentar novamente :)");
+                                alert("Falhou", "Erro ao cadastrar novo fornecedor! Por favor, verifique todos os campos e tente novamente!", "OK");
                             }
                         }
                     });

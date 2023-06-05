@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,18 @@ import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 import br.com.ifgoiano.simplestock.R;
 import br.com.ifgoiano.simplestock.dao.UsuarioService;
 import br.com.ifgoiano.simplestock.dao.impl.UsuarioServiceImpl;
 import br.com.ifgoiano.simplestock.model.UsuarioModel;
+import br.com.ifgoiano.simplestock.util.EmailValidator;
 
 public class UsuarioFragment extends Fragment {
 
@@ -39,7 +47,7 @@ public class UsuarioFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_usuario, container, false);
-        usuarioService = new UsuarioServiceImpl();
+        usuarioService = new UsuarioServiceImpl(getContext());
         editTextNomeUsuario = view.findViewById(R.id.editTextNomeUsuario);
         spinnerNivelAcessoUsuario = view.findViewById(R.id.spinnerNivelAcessoUsuario);
         editTextEmailUsuario = view.findViewById(R.id.editTextEmailUsuario);
@@ -62,6 +70,8 @@ public class UsuarioFragment extends Fragment {
                 } else {
                     if (password.length() < 6) {
                         alert("Aviso", "A senha deve ter pelo menos 6 dígitos!", "OK");
+                    } else if (!EmailValidator.isValidEmail(email)) {
+                        alert("Aviso", "Email inválido!", "OK");
                     } else {
                         // salvar
                         UsuarioModel usuarioModel = new UsuarioModel();
@@ -75,8 +85,6 @@ public class UsuarioFragment extends Fragment {
                                 if (task.getResult()) {
                                     clean();
                                     alert("Sucesso", "Novo usuário cadastrado com sucesso!", "OK");
-                                } else {
-                                    alert("Falhou", "Houve um problema ao salvar o novo usuário, por favor tente novamente!", "OK");
                                 }
                             }
                         });
