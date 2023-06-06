@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayoutItemRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -43,35 +44,6 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/editTextValorVarejoProdutoRecyclerViewAdapter"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:textSize="18sp" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/editTextValorVendaProdutoRecyclerViewAdapter"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:textSize="18sp" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/editTextFornecedorProdutoRecyclerViewAdapter"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:textSize="18sp" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/editTextCategoriaProdutoRecyclerViewAdapter"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:textSize="18sp" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/editTextDescricaoProdutoRecyclerViewAdapter"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:textSize="18sp" />-->
     </LinearLayout>
 
 

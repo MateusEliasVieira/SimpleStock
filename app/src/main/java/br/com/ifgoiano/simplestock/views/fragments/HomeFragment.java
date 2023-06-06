@@ -20,6 +20,7 @@ import br.com.ifgoiano.simplestock.dao.CategoriaService;
 import br.com.ifgoiano.simplestock.dao.ProdutoService;
 import br.com.ifgoiano.simplestock.dao.impl.CategoriaServiceImpl;
 import br.com.ifgoiano.simplestock.dao.impl.ProdutoServiceImpl;
+import br.com.ifgoiano.simplestock.util.Util;
 
 public class HomeFragment extends Fragment {
     private ProdutoService produtoService;
@@ -30,6 +31,7 @@ public class HomeFragment extends Fragment {
     private TextView textViewQuantidadeProduto;
     private double varejo;
     private double venda;
+    private Util util;
 
     public HomeFragment() {
     }
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment {
         textViewQuantidadeProduto = view.findViewById(R.id.textViewQuantidadeProduto);
         varejo = 0.0;
         venda = 0.0;
+        util = new Util();
         setEditTexts();
         return view;
     }
@@ -57,25 +60,13 @@ public class HomeFragment extends Fragment {
                 venda = venda + produtoModel.getVenda();
             });
 
-            textViewVarejo.setText("R$" + getValueFormat(varejo));
-            textViewVenda.setText("R$" + getValueFormat(venda));
+            textViewVarejo.setText("R$" + util.getValueFormat(varejo));
+            textViewVenda.setText("R$" + util.getValueFormat(venda));
             textViewQuantidadeProduto.setText(String.valueOf(produtoModelList.size()));
         });
         categoriaService.findAll().thenAccept(categoriaModelList -> {
             textViewQuantidadeCategoria.setText(String.valueOf(categoriaModelList.size()));
         });
     }
-
-    private String getValueFormat(double value) {
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
-        symbols.setDecimalSeparator(',');
-        symbols.setGroupingSeparator('.');
-
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", symbols);
-
-        String formattedValue = decimalFormat.format(value);
-        return formattedValue;
-    }
-
 
 }

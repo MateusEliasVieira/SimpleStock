@@ -1,9 +1,9 @@
 package br.com.ifgoiano.simplestock.util;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.text.Layout;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,22 +12,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.CompletableFuture;
 
 import br.com.ifgoiano.simplestock.R;
 import br.com.ifgoiano.simplestock.dao.ProdutoService;
 import br.com.ifgoiano.simplestock.dao.impl.ProdutoServiceImpl;
 import br.com.ifgoiano.simplestock.model.ProdutoModel;
+import br.com.ifgoiano.simplestock.views.fragments.ProdutoFragment;
 
 public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder> {
 
@@ -49,6 +46,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
         notifyDataSetChanged();
     }
 
+
     // Método para buscar os produtos do Firebase
     private void buscarProdutos() {
         produtoService.findAll().thenAccept(listProdutoModel -> {
@@ -64,8 +62,8 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
     @NonNull
     @Override
     public ProdutoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewList = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_produtos, parent, false);
-        return new ProdutoViewHolder(viewList);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_produtos, parent, false);
+        return new ProdutoViewHolder(view, parent.getContext());
     }
 
     @Override
@@ -83,29 +81,33 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
         return produtos.size();
     }
 
-    private String getValueFormat(double value) {
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
-        symbols.setDecimalSeparator(',');
-        symbols.setGroupingSeparator('.');
-
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", symbols);
-
-        String formattedValue = decimalFormat.format(value);
-        return formattedValue;
-    }
-
     public class ProdutoViewHolder extends RecyclerView.ViewHolder {
         ImageView imageViewProduto;
         TextView textViewNomeProduto;
         TextView textViewQuantidade;
 
-        public ProdutoViewHolder(@NonNull View itemView) {
+        public ProdutoViewHolder(@NonNull View itemView, final Context context) {
             super(itemView);
             imageViewProduto = itemView.findViewById(R.id.imageViewFotoProdutoRecyclerViewAdapter);
             textViewNomeProduto = itemView.findViewById(R.id.editTextNomeProdutoRecyclerViewAdapter);
             textViewQuantidade = itemView.findViewById(R.id.editTextQuantidadeProdutoRecyclerViewAdapter);
+            // Evento de click ao clicar em algum item do recycler view
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ProdutoFragment.class);
+                    ((AppCompatActivity) context).startActivity(intent);
+                    Log.d("teste","clicou");
+//                    AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
+//                    alert.setTitle("Teste");
+//                    alert.setMessage("O que deseja fazer?");
+//                    alert.setPositiveButton("Editar",null);
+//                    alert.show();
+                }
+            });
         }
 
     }
+
 
 }

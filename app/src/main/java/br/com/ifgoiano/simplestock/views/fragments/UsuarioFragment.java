@@ -79,7 +79,7 @@ public class UsuarioFragment extends Fragment {
                         usuarioModel.setEmail(email);
                         usuarioModel.setAcessibilidade(acess);
                         usuarioModel.setSenha(password);
-                        usuarioService.addUser(usuarioModel, new OnCompleteListener<Boolean>() {
+                        usuarioService.save(usuarioModel, new OnCompleteListener<Boolean>() {
                             @Override
                             public void onComplete(@NonNull Task<Boolean> task) {
                                 if (task.getResult()) {

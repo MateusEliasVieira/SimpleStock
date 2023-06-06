@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
@@ -41,6 +42,7 @@ public class EstoqueFragment extends Fragment {
 
     private EditText editTextPesquisaEstoque;
 
+    private LinearLayout linearLayoutItem;
 
     public EstoqueFragment() {
 
@@ -53,6 +55,7 @@ public class EstoqueFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_estoque, container, false);
         fornecedorService = new FornecedorServiceImpl(getContext());
         produtoService = new ProdutoServiceImpl(getContext());
+        linearLayoutItem = view.findViewById(R.id.linearLayoutItemRecyclerView);
         editTextPesquisaEstoque = view.findViewById(R.id.editTextPesquisaEstoque);
         produtoAdapter = new ProdutoAdapter(getContext());
         recyclerView = view.findViewById(R.id.recyclerViewProdutosEstoque);
@@ -64,7 +67,6 @@ public class EstoqueFragment extends Fragment {
         addEventSearchEditText();
         return view;
     }
-
 
     private void addEventSearchEditText() {
         editTextPesquisaEstoque.addTextChangedListener(new TextWatcher() {
@@ -102,7 +104,6 @@ public class EstoqueFragment extends Fragment {
     }
 
     private void buscarProdutos(String name) {
-        List<ProdutoModel> listProdutoModel = new ArrayList<>();
         produtoService.findByName(name).thenAccept(list -> {
             produtoAdapter = new ProdutoAdapter(getContext(), list);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -111,7 +112,7 @@ public class EstoqueFragment extends Fragment {
             recyclerView.setAdapter(produtoAdapter);
         }).exceptionally(e -> {
             // Trate exceções, se houver
-            Log.d("Teste", e.getMessage());
+            Log.d("teste", e.getMessage());
             return null;
         });
     }
