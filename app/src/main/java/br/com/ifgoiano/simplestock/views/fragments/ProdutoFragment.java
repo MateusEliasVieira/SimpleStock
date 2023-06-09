@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -83,6 +84,19 @@ public class ProdutoFragment extends Fragment {
         addEventButtonCad();
         loadSpinnerFornecedor();
         loadSpinnerCategoria();
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            // Os dados foram passados para editar
+            editTextNomeProduto.setText(bundle.getString("produto"));
+            editTextQuantidadeProduto.setText(String.valueOf(bundle.getInt("quantidade")));
+            editTextPrecoVarejo.setText(String.valueOf(bundle.getDouble("varejo")));
+            editTextPrecoVenda.setText(String.valueOf(bundle.getDouble("venda")));
+            editTextDescricaoProduto.setText(bundle.getString("descricao"));
+            Glide.with(getContext())
+                    .load(bundle.getString("url_imagem"))
+                    .into(imageViewFotoProduto);
+
+        }
         return view;
     }
 
@@ -183,7 +197,7 @@ public class ProdutoFragment extends Fragment {
         });
     }
 
-    private void loadSpinnerCategoria(){
+    private void loadSpinnerCategoria() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item);
         categoriaService.findAll().thenAccept(categoriaModelList -> {
             adapter.add("Categoria");
@@ -195,7 +209,7 @@ public class ProdutoFragment extends Fragment {
         });
     }
 
-    private void loadSpinnerFornecedor(){
+    private void loadSpinnerFornecedor() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item);
         fornecedorService.findAll().thenAccept(fornecedorModelList -> {
             adapter.add("Fornecedor");
