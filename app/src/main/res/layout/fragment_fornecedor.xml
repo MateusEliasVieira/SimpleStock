@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back1"
     tools:context=".views.fragments.FornecedorFragment">
 
     <LinearLayout
         android:id="@+id/linearLayoutFornecedor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/form"
         android:elevation="20dp"
         android:orientation="vertical"
         android:padding="15dp">

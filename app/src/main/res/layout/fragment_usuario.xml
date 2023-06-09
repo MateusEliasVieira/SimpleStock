@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back1"
     tools:context=".views.fragments.UsuarioFragment">
 
     <LinearLayout
@@ -11,7 +12,6 @@
         android:layout_height="match_parent"
         android:elevation="20dp"
         android:padding="15dp"
-        android:background="@color/form"
         android:orientation="vertical">
 
         <EditText
