@@ -17,6 +17,6 @@ public interface ProdutoService {
 
     public CompletableFuture<List<ProdutoModel>> findByName(String name);
 
-    public void delete(String name_document);
+    public boolean delete(String name_document,OnCompleteListener<Boolean> listener);
 
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,7 +64,6 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("clicou", "Clicou no item = " + positionClick);
                 clickItemRecyclerView(positionClick);
             }
         });
@@ -134,7 +134,24 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
                     .commit();
         }));
 
-        alert.setNegativeButton("Deletar", null);
+        alert.setNegativeButton("Deletar", ((dialog, which) -> {
+            AlertDialog.Builder alertDelete = new AlertDialog.Builder(context);
+            alertDelete.setTitle("Aviso");
+            alertDelete.setMessage("Deseja realmente deletar este produto?");
+            alertDelete.setNegativeButton("Não",null);
+            alertDelete.setPositiveButton("Sim",((dialog1, which1) -> {
+                produtoService.delete(produtoModel.getProduto(), task -> {
+                    if(task.getResult()){
+                        Toast.makeText(context,"Produto deletado com sucesso!",Toast.LENGTH_LONG).show();
+                        produtos.remove(positionClick);
+                        notifyItemRemoved(positionClick);
+                    }else{
+                        Toast.makeText(context,"Não foi possível deletar o produto!",Toast.LENGTH_LONG).show();
+                    }
+                });
+            }));
+            alertDelete.show();
+        }));
         alert.show();
     }
 
@@ -145,4 +162,5 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
     public void setContext(Context context) {
         this.context = context;
     }
+
 }

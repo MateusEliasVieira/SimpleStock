@@ -28,7 +28,7 @@ import br.com.ifgoiano.simplestock.util.Util;
 
 public class ProdutoServiceImpl implements ProdutoService {
 
-    private FirebaseFirestore db;
+    private FirebaseFirestore firebaseFirestore;
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private CollectionReference collectionReference;
@@ -37,10 +37,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     public ProdutoServiceImpl(Context context) {
         this.context = context;
-        db = FirebaseFirestore.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
-        collectionReference = db.collection("produto");
+        collectionReference = firebaseFirestore.collection("produto");
     }
 
     public boolean save(ProdutoModel produtoModel, OnCompleteListener<Boolean> listenerResult) {
@@ -158,8 +158,28 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 
     @Override
-    public void delete(String name_document) {
+    public boolean delete(String name_document, OnCompleteListener<Boolean> listener) {
+        storageRef.child(name_document.replace(" ", "_") + ".jpg".trim())
+                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        collectionReference.document(name_document).delete()
+                                .addOnSuccessListener(result -> {
+                                    listener.onComplete(Tasks.forResult(true));
+                                })
+                                .addOnFailureListener(result -> {
+                                    listener.onComplete(Tasks.forResult(false));
 
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        listener.onComplete(Tasks.forResult(false));
+                    }
+                });
+        return false;
     }
 
 
