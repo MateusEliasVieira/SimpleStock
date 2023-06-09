@@ -16,22 +16,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Toast;
 
 import br.com.ifgoiano.simplestock.R;
 import br.com.ifgoiano.simplestock.dao.FornecedorService;
 import br.com.ifgoiano.simplestock.dao.ProdutoService;
 import br.com.ifgoiano.simplestock.dao.impl.FornecedorServiceImpl;
 import br.com.ifgoiano.simplestock.dao.impl.ProdutoServiceImpl;
-import br.com.ifgoiano.simplestock.model.ProdutoModel;
-import br.com.ifgoiano.simplestock.util.ProdutoAdapter;
+import br.com.ifgoiano.simplestock.adapter.ProdutoAdapter;
 
 public class EstoqueFragment extends Fragment {
 
@@ -41,8 +34,6 @@ public class EstoqueFragment extends Fragment {
     private ProdutoAdapter produtoAdapter;
 
     private EditText editTextPesquisaEstoque;
-
-    private LinearLayout linearLayoutItem;
 
     public EstoqueFragment() {
 
@@ -55,7 +46,6 @@ public class EstoqueFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_estoque, container, false);
         fornecedorService = new FornecedorServiceImpl(getContext());
         produtoService = new ProdutoServiceImpl(getContext());
-        linearLayoutItem = view.findViewById(R.id.linearLayoutItemRecyclerView);
         editTextPesquisaEstoque = view.findViewById(R.id.editTextPesquisaEstoque);
         produtoAdapter = new ProdutoAdapter(getContext());
         recyclerView = view.findViewById(R.id.recyclerViewProdutosEstoque);
@@ -103,13 +93,17 @@ public class EstoqueFragment extends Fragment {
         });
     }
 
+    public void changeItem(int position) {
+        Log.d("teste", "position=" + position);
+        produtoAdapter.notifyItemChanged(position);
+    }
+
     private void buscarProdutos(String name) {
         produtoService.findByName(name).thenAccept(list -> {
-            produtoAdapter = new ProdutoAdapter(getContext(), list);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setAdapter(produtoAdapter);
+            produtoAdapter.setProdutos(list);
+            produtoAdapter.setContext(getContext());
+            produtoAdapter.notifyDataSetChanged(); // Notifica o adaptador sobre a mudança nos dados
+
         }).exceptionally(e -> {
             // Trate exceções, se houver
             Log.d("teste", e.getMessage());
