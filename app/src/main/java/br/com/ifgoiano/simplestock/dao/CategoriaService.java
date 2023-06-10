@@ -9,7 +9,7 @@ import br.com.ifgoiano.simplestock.model.CategoriaModel;
 
 public interface CategoriaService {
 
-    public boolean save(CategoriaModel categoriaModel, OnCompleteListener onCompleteListener);
+    public void save(CategoriaModel categoriaModel, OnCompleteListener onCompleteListener);
     public CompletableFuture<List<CategoriaModel>> findAll();
 
 }

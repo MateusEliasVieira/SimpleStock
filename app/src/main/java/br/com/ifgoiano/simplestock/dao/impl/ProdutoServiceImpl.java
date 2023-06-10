@@ -43,9 +43,9 @@ public class ProdutoServiceImpl implements ProdutoService {
         collectionReference = firebaseFirestore.collection("produto");
     }
 
-    public boolean save(ProdutoModel produtoModel, OnCompleteListener<Boolean> listenerResult) {
+    public void save(String document, ProdutoModel produtoModel, OnCompleteListener<Boolean> listenerResult) {
 
-        String nameImage = produtoModel.getProduto().replace(" ", "_").trim() + ".jpg";
+        String nameImage = produtoModel.getProduto().replace(" ", "_").trim() + ".png";
         StorageReference imageRef = storageRef.child(nameImage);
         imageBytes = new Util().convertBitmapForBytes(produtoModel.getImagem());
         UploadTask uploadTask = imageRef.putBytes(imageBytes);// Envia a imagem para ser salva
@@ -66,7 +66,6 @@ public class ProdutoServiceImpl implements ProdutoService {
             });
         });
 
-        return false;
     }
 
     @Override
@@ -158,8 +157,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 
     @Override
-    public boolean delete(String name_document, OnCompleteListener<Boolean> listener) {
-        storageRef.child(name_document.replace(" ", "_") + ".jpg".trim())
+    public void delete(String name_document, OnCompleteListener<Boolean> listener) {
+        storageRef.child(name_document.replace(" ", "_") + ".png".trim())
                 .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -179,7 +178,6 @@ public class ProdutoServiceImpl implements ProdutoService {
                         listener.onComplete(Tasks.forResult(false));
                     }
                 });
-        return false;
     }
 
 

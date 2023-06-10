@@ -39,7 +39,7 @@ public class FornecedorServiceImpl implements FornecedorService {
     }
 
     @Override
-    public boolean save(FornecedorModel fornecedorModel, OnCompleteListener listener) {
+    public void save(FornecedorModel fornecedorModel, OnCompleteListener listener) {
         firebaseFirestore.collection(COLLECTION)
                 .document(fornecedorModel.getCnpj())
                 .set(fornecedorModel.toMap())
@@ -55,12 +55,10 @@ public class FornecedorServiceImpl implements FornecedorService {
                         listener.onComplete(Tasks.forResult(false));
                     }
                 });
-        return false;
     }
 
     @Override
-    public boolean update() {
-        return false;
+    public void update() {
     }
 
     @Override

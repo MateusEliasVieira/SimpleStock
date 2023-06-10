@@ -56,8 +56,8 @@ public class HomeFragment extends Fragment {
     private void setEditTexts() {
         produtoService.findAll().thenAccept(produtoModelList -> {
             produtoModelList.forEach(produtoModel -> {
-                varejo = varejo + produtoModel.getVarejo();
-                venda = venda + produtoModel.getVenda();
+                varejo += (produtoModel.getVarejo() * produtoModel.getQuantidade());
+                venda += (produtoModel.getVenda() * produtoModel.getQuantidade());
             });
 
             textViewVarejo.setText("R$" + util.getValueFormat(varejo));

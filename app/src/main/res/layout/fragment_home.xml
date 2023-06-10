@@ -15,90 +15,106 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:orientation="vertical"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/cards"
-            android:padding="5dp">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:scrollbars="horizontal">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:background="@drawable/dinheiro_branco" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/hint_preco_custo"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:minWidth="160dp"
+                android:layout_height="match_parent"
+                android:minHeight="130dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/cards"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            <TextView
-                android:id="@+id/textViewValorEstoquePrecoVarejo"
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/dinheiro_branco" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/hint_preco_custo"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewValorEstoquePrecoVarejo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/carregando"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:scrollbars="horizontal">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:text="@string/carregando"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
+                android:minWidth="160dp"
+                android:layout_height="match_parent"
+                android:minHeight="130dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/cards"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-        <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/cards"
-            android:padding="10dp">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/dinheiro_branco" />
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:background="@drawable/dinheiro_branco" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/hint_preco_venda"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/hint_preco_venda"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/textViewValorEstoquePrecoVenda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/carregando"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textViewValorEstoquePrecoVenda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/carregando"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
-
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="170dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="160dp"
+            android:layout_height="130dp"
             android:layout_marginRight="5dp"
-            android:orientation="vertical"
             android:background="@drawable/cards"
-            android:padding="5dp">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <ImageView
                 android:layout_width="50dp"
@@ -122,18 +138,18 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/carregando"
-                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="160dp"
+            android:layout_height="130dp"
             android:layout_marginLeft="5dp"
-            android:orientation="vertical"
             android:background="@drawable/cards"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <ImageView
@@ -158,9 +174,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/carregando"
-                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

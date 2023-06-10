@@ -37,7 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public boolean save(UsuarioModel usuarioModel,OnCompleteListener<Boolean> listenerResult) {
+    public void save(UsuarioModel usuarioModel,OnCompleteListener<Boolean> listenerResult) {
         // adicionar com ao firebase authentication
         Task<AuthResult> task = firebaseAuth.createUserWithEmailAndPassword(usuarioModel.getEmail(), usuarioModel.getSenha());
         task.addOnSuccessListener(result -> {
@@ -65,7 +65,6 @@ public class UsuarioServiceImpl implements UsuarioService {
             }
             listenerResult.onComplete(Tasks.forResult(false));
         });
-        return false;
     }
 
     private void alert(String title, String message, String button) {

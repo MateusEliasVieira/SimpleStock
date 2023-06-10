@@ -8,9 +8,9 @@ import java.util.concurrent.CompletableFuture;
 import br.com.ifgoiano.simplestock.model.FornecedorModel;
 
 public interface FornecedorService {
-    public boolean save(FornecedorModel fornecedorModel, OnCompleteListener listener);
+    public void save(FornecedorModel fornecedorModel, OnCompleteListener listener);
 
-    public boolean update();
+    public void update();
 
     public CompletableFuture<List<FornecedorModel>> findAll();
 

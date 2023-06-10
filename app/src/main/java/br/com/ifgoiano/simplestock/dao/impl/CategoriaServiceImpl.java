@@ -24,7 +24,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public boolean save(CategoriaModel categoriaModel, OnCompleteListener onCompleteListener) {
+    public void save(CategoriaModel categoriaModel, OnCompleteListener onCompleteListener) {
         firebaseFirestore.collection(COLLECTION_CATEGORIA).document(categoriaModel.getCategoria()).set(categoriaModel.toMap())
                 .addOnSuccessListener(result -> {
                     onCompleteListener.onComplete(Tasks.forResult(true));
@@ -32,7 +32,6 @@ public class CategoriaServiceImpl implements CategoriaService {
                 .addOnFailureListener(failure -> {
                     onCompleteListener.onComplete(Tasks.forResult(false));
                 });
-        return false;
     }
 
     @Override

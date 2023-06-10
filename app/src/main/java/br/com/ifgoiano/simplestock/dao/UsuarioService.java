@@ -6,7 +6,7 @@ import br.com.ifgoiano.simplestock.model.UsuarioModel;
 
 public interface UsuarioService {
 
-    public boolean save(UsuarioModel usuarioModel, OnCompleteListener<Boolean> listenerResult);
+    public void save(UsuarioModel usuarioModel, OnCompleteListener<Boolean> listenerResult);
 
 
 }

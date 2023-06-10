@@ -51,6 +51,7 @@ public class ProdutoFragment extends Fragment {
     private TextView textViewSelecionarImagem;
     private ImageView imageViewFotoProduto;
     private Button buttonCadastrarProduto;
+    private String document;
 
     public ProdutoFragment() {
 
@@ -80,6 +81,7 @@ public class ProdutoFragment extends Fragment {
         imageViewFotoProduto.setDrawingCacheEnabled(true); // Habilita o cache de desenho para o ImageView
         imageViewFotoProduto.buildDrawingCache(); // Constrói o cache de desenho
         buttonCadastrarProduto = view.findViewById(R.id.buttonCadastrarProduto);
+        document = "";
         addEventImageProduct();
         addEventButtonCad();
         loadSpinnerFornecedor();
@@ -87,6 +89,7 @@ public class ProdutoFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             // Os dados foram passados para editar
+            document = bundle.getString("produto"); // backup do nome do produto (Caso alteramos o nome do produto, ainda temos esse backup para utilizar na atualização do documento com esse nome)
             editTextNomeProduto.setText(bundle.getString("produto"));
             editTextQuantidadeProduto.setText(String.valueOf(bundle.getInt("quantidade")));
             editTextPrecoVarejo.setText(String.valueOf(bundle.getDouble("varejo")));
@@ -177,7 +180,7 @@ public class ProdutoFragment extends Fragment {
                     String urlImage = "";
                     ProdutoModel produtoModel = new ProdutoModel(nomeProduto, categoriaProduto, fornecedor, quantidadeProduto, precoVarejo, precoVenda, descricao, urlImage, imagem);
                     // Enviar para salvar
-                    produtoService.save(produtoModel, new OnCompleteListener<Boolean>() {
+                    produtoService.save(document,produtoModel, new OnCompleteListener<Boolean>() {
                         @Override
                         public void onComplete(@NonNull Task<Boolean> task) {
                             if (task.isSuccessful()) {

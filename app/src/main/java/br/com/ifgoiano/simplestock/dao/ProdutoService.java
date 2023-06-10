@@ -9,7 +9,7 @@ import br.com.ifgoiano.simplestock.model.ProdutoModel;
 
 public interface ProdutoService {
 
-    public boolean save(ProdutoModel produtoModel, OnCompleteListener<Boolean> listenerResult);
+    public void save(String document, ProdutoModel produtoModel, OnCompleteListener<Boolean> listenerResult);
 
     public void update(ProdutoModel produtoModel);
 
@@ -17,6 +17,6 @@ public interface ProdutoService {
 
     public CompletableFuture<List<ProdutoModel>> findByName(String name);
 
-    public boolean delete(String name_document,OnCompleteListener<Boolean> listener);
+    public void delete(String name_document,OnCompleteListener<Boolean> listener);
 
 }
